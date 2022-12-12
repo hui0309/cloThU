@@ -1,0 +1,138 @@
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>single_update.html</title>
+      <style>
+        body {
+            margin: 0px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-family: 微軟正黑體,新細明體,標楷體;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        
+        .menu {
+            position:fixed;
+            width: 100%;
+            height: 40px;
+            background-color: dimgrey;
+            z-index: 9999999;
+        }
+        
+        .menu_css {
+            float: left;
+            width: 100%;
+            height: inherit;
+            overflow: hidden;
+            font-family: 微軟正黑體,新細明體,標楷體;
+            font-weight: bold;
+            font-size: 17px;
+            color: white;
+            border-spacing: 0px;
+        }
+        .menu_css tr {
+            display: block;
+        }
+        .menu_css td {
+            height: 40px;
+            padding: 0px 15px 0px 15px;
+            white-space: nowrap;
+        }
+        .menu_css td:hover {
+            background-color: black;
+        }
+        
+        .content {
+            position: relative;
+            word-wrap: break-word;
+            width: 100%;
+            top: 40px;
+        }
+        
+        li img {
+            width: 100%;
+            height: 100%;
+        }
+    
+        .preview {
+      background:#888888;
+      width:550px;
+      height:auto;
+      text-align:center;
+    }
+    .preview img{
+      height:320px;
+      order:1;
+      vertical-align : middle;
+    }
+    
+    
+      </style>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/jquery.bxslider.min.js"></script>
+      <link href="css/jquery.bxslider.min.css" rel="stylesheet" />
+      <script>
+        $(document).ready(function(){
+          slider = $('.bxslider').bxSlider(
+              {
+                  pagerCustom: '#bx-pager'
+              }
+          );
+          slider.startAuto();
+        });
+      </script>
+    </head>
+    <body>
+    
+    
+        <form id="mfrom" method="post" action="single_update.php">
+            <div class="menu">
+                <a href="single.php"> <div style="text-align:right;padding-top:10px; ">離開</div></a>
+                
+            </div>
+            <div class="content">
+                <table style="height:50%;width:80%;">
+                    <tr>
+                        <td colspan="3"><div  style="height:100%;width:100%;background:gray;">
+                            圖片
+                            </div>
+                        </td>
+                        <td>
+                            <div style="text-align:right; padding-top:75%; "> <button class="button" onclick="">刪除</button></div>
+                        </td>
+                        <td>
+                            <div style="text-align:right; padding-top:75%; "> <input type="submit" class="button" onclick="" value="完成"></div>
+                        </td>
+                    </tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                </table>
+                <table>
+                    <tr><td><div style="min-width:20px;">name</div><input type="text" id="cloth_name" name="cloth_name" required="required"/></td></tr> 
+					<tr><td><div style="min-width:20px;">style</div>
+						<input type="radio" name="style" value="cute"> 可愛
+						<input type="radio" name="style" value="simple"> 簡約
+						<input type="radio" name="style" value="grace"> 優雅
+					</td></tr> 
+					<tr><td><div style="min-width:20px;">category</div>
+						<input type="radio" name="category" value="top"> 上衣
+						<input type="radio" name="category" value="down"> 下著
+						<input type="radio" name="category" value="overall"> 連身衣
+					</td></tr> 
+                    <tr><td><div style="min-width:20px;">store</div><input type="text"  name="store" value=""/></td></tr> 
+                    <tr><td><div style="min-width:20px;">info</div><!--<input type="textarea" rows="6"
+                        cols="40"/>--><textarea name="text_info" rows="10" cols="30" placeholder="請輸入衣服簡介(選填).."></textarea>
+                    </td></tr> 
+                </table>
+                </div>
+            </div>
+        </form>
+    
+    
+    
+    
+        
+    </body>
+    </html>
