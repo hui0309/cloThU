@@ -1,5 +1,8 @@
 <?php
-	include("con_db.php");
+    include("con_db.php");
+    session_start();//include這個才能用session
+///$user_id=$_SESSION["user_id"];
+    $user_id="00957117";
 ?>
 
 <html>
@@ -71,6 +74,22 @@
       </style>
      
     </head>
+    <script>
+
+function EditContent(){
+    document.getElementById("user_id").value = document.getElementById("user_id").value;
+    /*document.getElementById("TName").value = document.getElementById("TName").value;
+    document.getElementById("Price").value = document.getElementById("Price").value;
+    document.getElementById("Description").value = document.getElementById("Description").value;
+    document.getElementById("Name").value = document.getElementById("Name").value;
+    document.getElementById("Address").value = document.getElementById("Address").value;
+    document.getElementById("Phone").value = document.getElementById("Phone").value;
+    document.getElementById("mfrom").action = "toy_mdysave.php";
+    document.getElementById("mfrom").submit();
+*/
+document.getElementById("mfrom").action = "toy_mdysave.php";
+}    
+</script>
     <body>
     
     <div class="menu">
@@ -116,16 +135,47 @@
    
     </div>
     <div style="text-align: left;font-family: &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size: 15px;font-weight: bold;">
-        總數量為: 
+           總數量為: 
+        
         <?php
-            $query = ("select * from cloth_detail ");
-            $stmt =$db->prepare($query);
-            $error=$stmt->execute();
-            $result=$stmt->fetchALL();
-            $cloth_tot=count($result)+1;
-            
-                echo $cloth_tot;
+           $query = ("select * from cloth_number where user_id = ?");
+           $stmt =  $db -> prepare($query);
+           $error= $stmt -> execute(array($user_id));
+          // $result = $stmt -> fetchAll();
+          $mycloth_id = $stmt->fetchAll();
+            echo count($mycloth_id);
         ?>
+            
+            <table>
+           <?php $query = ("select * from cloth_detail ");
+            $stmt =  $db -> prepare($query);
+            $error= $stmt -> execute();
+            $cloth_detail = $stmt->fetchAll();
+
+            for($my = 0, $count = 0; $count < count($cloth_detail); $count++){
+               if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count]['cloth_id'])
+               { // print($cloth_detail[$count]['cloth_name'] );
+               ?>
+                  
+                <tr>
+                 <th scope="row"><?php echo $count+1;?></th> 
+                 <form id="mfrom" method="post" action="single_info.php">
+                 <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
+                 <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
+                 <td><img src="hamster.jpg"></td>
+                 </form>
+               </tr>
+
+               <?php     $my+=1;
+
+               }
+            }?>
+        
+
+        </table>
+            
+				
+                        
     </div>
 
 
@@ -133,5 +183,5 @@
 
 
     
-</body>
+    </body>
 </html>

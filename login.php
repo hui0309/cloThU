@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $_SESSION["login"] = true;
             //rong $_SESSION["user_id"] = 當前id
             //可以補一下若$_SESSION['login'] = false 就跳轉到index.php
-            $_SESSION["user_id"] = $result[0]["user_pass"];
+            $_SESSION["user_id"] = $result[0]["user_id"];
             header("location:welcome.php");
         }
         else{

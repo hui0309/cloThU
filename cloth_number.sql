@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-12-17 19:34:24
+-- 產生時間： 2022-12-17 19:34:14
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -24,37 +24,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `cloth_detail`
+-- 資料表結構 `cloth_number`
 --
 
-CREATE TABLE `cloth_detail` (
-  `cloth_id` bigint(15) NOT NULL,
-  `cloth_name` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `cloth_style` int(20) DEFAULT NULL,
-  `cloth_img` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
-  `cloth_category` int(20) DEFAULT NULL,
-  `cloth_info` varchar(120) CHARACTER SET utf8 DEFAULT NULL,
-  `store_id` bigint(15) DEFAULT NULL
+CREATE TABLE `cloth_number` (
+  `user_id` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `cloth_id` bigint(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `cloth_detail`
+-- 傾印資料表的資料 `cloth_number`
 --
 
-INSERT INTO `cloth_detail` (`cloth_id`, `cloth_name`, `cloth_style`, `cloth_img`, `cloth_category`, `cloth_info`, `store_id`) VALUES
-(1, 'try', 1, NULL, 1, 'erdgtfhyjh', 1),
-(2, 'try2', 2, NULL, 2, 'qq33q', 0),
-(3, 'try3', 4, NULL, 4, 'qewfdsrgtyuiyouytre', 0);
+INSERT INTO `cloth_number` (`user_id`, `cloth_id`) VALUES
+('00957117', 1),
+('00957117', 2),
+('00957117', 3);
 
 --
 -- 已傾印資料表的索引
 --
 
 --
--- 資料表索引 `cloth_detail`
+-- 資料表索引 `cloth_number`
 --
-ALTER TABLE `cloth_detail`
-  ADD PRIMARY KEY (`cloth_id`);
+ALTER TABLE `cloth_number`
+  ADD PRIMARY KEY (`user_id`,`cloth_id`),
+  ADD KEY `cloth_idfk` (`cloth_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,6 +1,7 @@
 <?php
-	include("db_conn.php");
-
+	include("con_db.php");
+	session_start();
+//	echo $_SESSION["user_id"];
 /*
 	create table cloth_detail( 
 	cloth_ID 		bigint(15) not null, 
@@ -67,7 +68,7 @@ O	store_ID 		bigint(15)
 	#	print($cloth_name.'<br>');
 	}
 	else
-		$category=NULL;
+		$style=NULL;
 
 #info
 	if (isset($_POST["text_info"]))
@@ -104,9 +105,28 @@ O	store_ID 		bigint(15)
 	$query=("insert into cloth_detail values(?,?,?,?,?,?,?)");
 	$stmt=$db->prepare($query);
 	//執行SQL語法
-	$result=$stmt->execute(array($cloth_id,$cloth_name,$style,null,$category,$text_info,$store));
+	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
 	
 
+	/*
+	create table cloth_number(
+	user_ID	bigint(15) not null,
+	cloth_ID	bigint(15) not null,
+	primary key(user_ID,cloth_ID),
+	foreign key (user_ID) references user,
+	foreign key (cloth_ID) references cloth_detail
+	);
+	*/
+//$user_id=$_SESSION["user_id"];
+$user_id="00957117";
+
+	//cloth_unmber
+	$query=("insert into cloth_number values(?,?)");
+	$stmt=$db->prepare($query);
+	//執行SQL語法
+	$result=$stmt->execute(array($user_id,$cloth_id));
+//function_alert("帳號或密碼錯誤"); 
+header("location:single.php");
 
 ?>
 

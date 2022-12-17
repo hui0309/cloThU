@@ -1,3 +1,10 @@
+<?php
+    include("con_db.php");
+    session_start();//include這個才能用session
+    $user_id=$_SESSION["user_id"];
+    echo $_SESSION["user_id"];
+?>
+
 <html>
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -71,19 +78,8 @@
     
     
       </style>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/jquery.bxslider.min.js"></script>
-      <link href="css/jquery.bxslider.min.css" rel="stylesheet" />
-      <script>
-        $(document).ready(function(){
-          slider = $('.bxslider').bxSlider(
-              {
-                  pagerCustom: '#bx-pager'
-              }
-          );
-          slider.startAuto();
-        });
-      </script>
+      
+
     </head>
     <body>
     
