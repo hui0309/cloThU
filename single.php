@@ -2,7 +2,12 @@
     include("con_db.php");
     session_start();//include這個才能用session
 ///$user_id=$_SESSION["user_id"];
-    $user_id="00957117";
+    //$user_id="00957117";
+    /*$_SESSION["login"] = false;
+    if($_SESSION["login"] == false){
+        header('Location: ./index.php');
+        exit;  //記得要跳出來，不然會重複轉址過多次
+    }*/
 ?>
 
 <html>
@@ -99,7 +104,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                     <a href="index.php"></a>我的衣櫃</a>
                 </td>
                 <td>
-                    <a href="content/toy.php">個人資訊</a>
+                    <a href="./person.php">個人資訊</a>
                 </td>
             </tr>
         </table>

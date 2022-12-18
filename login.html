@@ -1,4 +1,25 @@
+<!--https://www.w3schools.com/icons/fontawesome5_icons_status.asp-->
 <html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+function seepass(){
+
+    var but = document.getElementById("see").className;
+        var value = document.getElementById("user_pass").value;
+        if(but == "far fa-eye"){
+            document.getElementById("see").classList.remove("fa-eye");
+            document.getElementById("see").classList.add("fa-eye-slash");
+            document.getElementById("user_pass").type = "password";
+            document.getElementById("user_pass").value = value;
+        }
+        else{
+            document.getElementById("see").classList.remove("fa-eye-slash");
+            document.getElementById("see").classList.add("fa-eye");
+            document.getElementById("user_pass").type = "text";
+            document.getElementById("user_pass").value = value;
+        }
+    }    
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>登入介面</title>
@@ -6,11 +27,12 @@
 <body>
 <form method="post" action="login.php">
     帳號：
-    <input type="text" name="user_id"><br/><br/>
+    <input type="text" name="user_id" id = "user_id" maxlength="16" ><br/><br/>
     密碼：<!--之後改可選隱藏-->
-    <input type="password" name="user_pass"><br><br>
+    <input type="password" id="user_pass" name="user_pass" maxlength="16" >
+    <input type="button" id = "see" class="far fa-eye-slash" onclick=seepass()><br><br>
     <input type="button" value="忘記密碼" name="forget">
-    <input type="submit" value="登入" name="submit"><br><br>
+    <input type="submit" value="登入" id ="登入" name="submit"><br><br>
 </form>
 </body>
 </html>

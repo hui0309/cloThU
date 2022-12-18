@@ -1,29 +1,61 @@
 <html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>註冊</title>
     <script>
+        function seepass(){
+        var but = document.getElementById("see").className;
+        var value = document.getElementById("user_pass").value;
+        if(but == "far fa-eye"){
+            document.getElementById("see").classList.remove("fa-eye");
+            document.getElementById("see").classList.add("fa-eye-slash");
+            document.getElementById("user_pass").type = "password";
+            document.getElementById("user_pass").value = value;
+        }
+        else{
+            document.getElementById("see").classList.remove("fa-eye-slash");
+            document.getElementById("see").classList.add("fa-eye");
+            document.getElementById("user_pass").type = "text";
+            document.getElementById("user_pass").value = value;
+        }
+        }    
         function validateForm() {
-            //加強難度
-            var x = document.forms["register"]["user_pass"].value;
-            //var y = document.forms["registerForm"]["password_check"].value;
-            if(x.length < 6){
-                alert("密碼長度不足");
+            var user_pass = document.forms["register"]["user_pass"].value.toString();
+            var user_id = document.forms["register"]["user_id"].value.toString();
+            var user_mail = document.forms["register"]["user_mail"].value.toString();
+            var emailrule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+            var cha = /[a-zA-Z]+/, chn = /[0-9]+/, chstr = /[a-zA-Z0-9]{6,16}/;
+            if(!chstr.test(user_pass)){
+                alert("密碼只能包含數字及英文符號，且長度為6-16位");
+                document.getElementById("user_pass").value = "";
                 return false;
             }
-            /*if (x != y) {
-                alert("請確認密碼是否輸入正確");
+            if(!cha.test(user_pass) || !chn.test(user_pass)){
+                alert("密碼至少要包含一個英文字母及數字");
+                document.getElementById("user_pass").value = "";
                 return false;
-            }*/
+            }
+            if(!chstr.test(user_id)){
+                alert("帳號只能包含數字及英文符號，且長度為6-16位");
+                document.getElementById("user_id").value = "";
+                return false;
+            }
+            if(user_mail.search(emailrule) == -1){
+                alert("信箱格式輸入錯誤");
+                document.getElementById("user_mail").value = "";
+                return false;
+            }
         }
     </script>
     </head>
 <body>
 <form name="register" method="post" action="register.php" onsubmit="return validateForm()">
     帳  號：
-        <input type="text" name="user_id"><br/><br/>
+        <input type="text" name="user_id" id="user_id" maxlength="16"><br/><br/>
     密  碼：
-        <input type="password" name="user_pass" id="user_pass"><br/><br/>
+        <input type="password" name="user_pass" id="user_pass" maxlength="16">
+        <input type="button" id = "see" class="far fa-eye-slash" onclick=seepass()><br><br>
     信箱：
         <input type="text" name="user_mail" id="user_mail"><br/><br/>
     <input type="reset" value="重設" name="submit">

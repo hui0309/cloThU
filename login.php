@@ -1,13 +1,10 @@
 <?php
 //include con_db file
 include("con_db.php");
-
-$user_id = $_POST["user_id"];
-//$pass = $_POST["user_pass"];
-$user_pass = $_POST["user_pass"];
-
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $user_id = $_POST["user_id"];
+    $user_pass = $_POST["user_pass"];
     $query = ("select * from user where user_id = ?");
     $stmt =  $db -> prepare($query);
     $error= $stmt -> execute(array($user_id));
@@ -15,32 +12,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(count($result) == 1){
         $user_curpass = $result[0]["user_pass"];
         if(password_verify($user_pass, $user_curpass)){
-            session_start();
             // Store data in session variables
+            session_start();
             $_SESSION["login"] = true;
-            //rong $_SESSION["user_id"] = 當前id
-            //可以補一下若$_SESSION['login'] = false 就跳轉到index.php
             $_SESSION["user_id"] = $result[0]["user_id"];
-            header("location:welcome.php");
+            $_SESSION["user_name"] = $result[0]["user_name"];
+            $_SESSION["user_mail"] = $result[0]["user_mail"];
+            //$_SESSION["user_img"] = $result[0]["user_img"];
+            echo '<script language="javascript">';
+            echo 'parent.location.reload();';
+            echo '</script>';
+            exit;
         }
         else{
-            function_alert("帳號或密碼錯誤"); 
+            alert("帳號或密碼錯誤"); 
+            exit;
         }
     }
     else{     
-        function_alert("此帳號尚未註冊"); 
+        alert("此帳號尚未註冊"); 
+        exit;
     }
 }
 else{
-    function_alert("Something wrong"); 
+    alert("Something wrong");
+    exit;
 }
-
-function function_alert($message) { 
-      
+function alert($message) { 
     // Display the alert box  
     echo "<script>alert('$message');
-     window.location.href='index.php';
+     window.location.href='login.php';
     </script>";
     return false;
-} 
+}
 ?>
