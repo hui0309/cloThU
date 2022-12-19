@@ -2,7 +2,7 @@
     include("con_db.php");
     session_start();//include這個才能用session
 ///$user_id=$_SESSION["user_id"];
-    //$user_id="00957117";
+    $user_id="00957117";
     /*$_SESSION["login"] = false;
     if($_SESSION["login"] == false){
         header('Location: ./index.php');
@@ -116,7 +116,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                    
         <!--        <input type="button"><input type="image" src="plus.png" heigt="20px" width="20px"></button>
                     <input type="image"  id="saveform" src="plus.png " heigt="20px" width="20px" alt="Submit Form" />
-        -->      	<a href="single_update.html"> <input type="image" src="plus.png"   heigt=20% width=20%  onClick="document.formname.submit();"></a>
+        -->      	<a href="single_add.html"> <input type="image" src="plus.png"   heigt=20% width=20%  onClick="document.formname.submit();"></a>
                     </div>
                 </td>
                 <td> <div calss="button">

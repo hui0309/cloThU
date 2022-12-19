@@ -1,133 +1,167 @@
 <?php
-	include("con_db.php");
-	session_start();
-//	echo $_SESSION["user_id"];
-/*
-	create table cloth_detail( 
-	cloth_ID 		bigint(15) not null, 
-o	cloth_name 		varchar(20), not null
-o	cloth_style 		varchar(20), 
-	cloth_Img 		varchar(20), //暫時無
-o	cloth_category		varchar(20), 
-o	cloth_info		varchar(120),
-O	store_ID 		bigint(15) 
-	primary key(cloth_ID),
-	foreign key (store_ID) references store);
- */
-
-
-	$cloth_name = $_POST["cloth_name"];
-	//上衣 下著 連身衣
-	$category_arr = array("top", "down", "overall");
-	$style_arr = array("cute", "simple", "grace");
-	//衣服種類的binary
-#category
-	if (isset($_POST["category"]))
-	{
-		//變數存在
-		$category = $_POST["category"];
-		$cate_id=1;#在arr中第幾個 2^cate_id
-		$cate_num=1;//實際的數值
-		for ($i=0;$i<count($category_arr);$i++){
-			if ($category_arr[$i]==$category)
-			{ 	$cate_id=$i;
-				print("first $cate_id<br>");	
-			}
-		}
+    include("con_db.php");
+    session_start();//include這個才能用session
+    //$user_id=$_SESSION["user_id"];
+	//echo $_SESSION["user_id"];
+//	echo $_POST['cloth_id'];
+	$cloth_id=$_POST["cloth_id"];
 	
-		while($cate_id>0)
-		{$cate_num*=2;
-			$cate_id-=1;
-		}
-		print("final val $cate_num <br>");	
-	
-	}
-	else //變數不存在，未選
-		$category=NULL;
-	print("trytry $category<br>");
-
-#style
-	if (isset($_POST["style"]))
-	{
-
-		$style = $_POST["style"];
-		$style_id=1;#在arr中第幾個 2^cate_id
-		$style_num=1;//實際的數值
-		for ($i=0;$i<count($style_arr);$i++){
-			if ($style_arr[$i]==$style)
-			{ 	$style_id=$i;
-				print("first $style_id<br>");	
-			}
-		}
-
-		while($style_id>0)
-		{$style_num*=2;
-			$style_id-=1;
-		}
-		print("final val $style_num <br>");
-	#	print($cloth_name.'<br>');
-	}
-	else
-		$style=NULL;
-
-#info
-	if (isset($_POST["text_info"]))
-	{
-
-		$text_info = $_POST["text_info"];
-	}
-	else
-		$text_info=NULL;
-
-#store
-	if (isset($_POST["store"]))
-	{
-
-		$store = $_POST["store"];
-	}
-	else
-		$store=NULL;
-
-
-
-	/*$query = ("select * from user where user_id = ?");
+	$query = ("select * from cloth_detail where cloth_id=?");
     $stmt =  $db -> prepare($query);
-    $error= $stmt -> execute(array($user_id));
-	$result = $stmt -> fetchAll();
-	*/	
-	$query = ("select * from cloth_detail ");
-    $stmt =$db->prepare($query);
-    $error=$stmt->execute();
-	$result=$stmt->fetchALL();
-	$cloth_id=count($result)+1;//當前衣櫃有多少衣服
-	//使用預處理寫法是為了防止「sql injection」
-    //設定要使用的SQL指令
-	$query=("insert into cloth_detail values(?,?,?,?,?,?,?)");
-	$stmt=$db->prepare($query);
-	//執行SQL語法
-	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
+    $error= $stmt -> execute(array($cloth_id));
+    $cloth_detail = $stmt->fetchAll();
+//    echo $cloth_detail[0]['cloth_name'];
+ //   $style_arr = array("可愛", "簡約", "優雅");
+    $style = $cloth_detail[0]['cloth_style'];
+    $style_id=0;#在arr中第幾個 2^style_id
+    while($style>1)
+    {   $style=floor($style/2);
+        $style_id+=1;
+    }
+//    $style_val=$style_arr[$style_id];
+
+
+//    $category_arr = array("上衣", "下著", "連身衣");
+    $cate = $cloth_detail[0]['cloth_category'];
+//print("ddd $cate");
+    $cate_id=0;#在arr中第幾個 2^style_id
+    while($cate>1)
+    {   $cate=floor($cate/2);
+        $cate_id+=1;
+    }
+//    $cate_val=$category_arr[$cate_id];
 	
-
-	/*
-	create table cloth_number(
-	user_ID	bigint(15) not null,
-	cloth_ID	bigint(15) not null,
-	primary key(user_ID,cloth_ID),
-	foreign key (user_ID) references user,
-	foreign key (cloth_ID) references cloth_detail
-	);
-	*/
-//$user_id=$_SESSION["user_id"];
-$user_id="00957117";
-
-	//cloth_unmber
-	$query=("insert into cloth_number values(?,?)");
-	$stmt=$db->prepare($query);
-	//執行SQL語法
-	$result=$stmt->execute(array($user_id,$cloth_id));
-//function_alert("帳號或密碼錯誤"); 
-header("location:single.php");
-
 ?>
+
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>single_update.html</title>
+      <style>
+        body {
+            margin: 0px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-family: 微軟正黑體,新細明體,標楷體;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        
+        .menu {
+            position:fixed;
+            width: 100%;
+            height: 40px;
+            background-color: dimgrey;
+            z-index: 9999999;
+        }
+        
+        .menu_css {
+            float: left;
+            width: 100%;
+            height: inherit;
+            overflow: hidden;
+            font-family: 微軟正黑體,新細明體,標楷體;
+            font-weight: bold;
+            font-size: 17px;
+            color: white;
+            border-spacing: 0px;
+        }
+        .menu_css tr {
+            display: block;
+        }
+        .menu_css td {
+            height: 40px;
+            padding: 0px 15px 0px 15px;
+            white-space: nowrap;
+        }
+        .menu_css td:hover {
+            background-color: black;
+        }
+        
+        .content {
+            position: relative;
+            word-wrap: break-word;
+            width: 100%;
+            top: 40px;
+        }
+        
+        li img {
+            width: 100%;
+            height: 100%;
+        }
+    
+        .preview {
+      background:#888888;
+      width:550px;
+      height:auto;
+      text-align:center;
+    }
+    .preview img{
+      height:320px;
+      order:1;
+      vertical-align : middle;
+    }
+    
+    
+      </style>
+      
+
+	</head>
+	<script>
+		function DeleteContent(){
+			//document.getElementById("ToyID").value = document.getElementById("ToyID").value;
+			//document.getElementById("mfrom").action = "toy_delsave.php";
+			//document.getElementById("mfrom").submit();
+		}
+	</script>
+    <body>
+    
+    
+        <form id="mfrom" method="post" action="">
+            <div class="menu">
+                <a href="single.php"> <div style="text-align:right;padding-top:10px; ">離開</div></a>
+                
+            </div>
+            <div class="content">
+                <table style="height:50%;width:80%;">
+                    <tr>
+                        <td colspan="3"><div  style="height:100%;width:100%;background:gray;">
+                            圖片
+                            </div>
+                        </td>
+                        <td>
+							<button onclick="UpdateContent()">刪除</button>
+                        </td>
+                        <td>
+							<button onclick="UpdateContent()">更新</button>
+                        </td>
+                    </tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                </table>
+                <table>
+                    <tr><td><div style="min-width:20px;">name</div><input type="text" id="cloth_name" value="<?php echo $cloth_detail[0]['cloth_name']?>" required="required"/></td></tr> 
+					<tr><td><div style="min-width:20px;">style</div>
+						<input type="radio" name="style" value="cute"  <?php echo ($style_id==0 && $style) ?  "checked" : "" ;  ?>> 可愛
+						<input type="radio" name="style" value="simple" <?php echo ($style_id==1 && $style) ?  "checked" : "" ;  ?>> 簡約
+						<input type="radio" name="style" value="grace" <?php echo ($style_id==2 && $style) ?  "checked" : "" ;  ?>> 優雅
+					</td></tr> 
+					<tr><td><div style="min-width:20px;">category</div>
+						<input type="radio" name="category" value="top" <?php echo ($cate_id==0 && $cate) ?  "checked" : "" ;  ?>> 上衣
+						<input type="radio" name="category" value="down" <?php echo ($cate_id==1 && $cate) ?  "checked" : "" ;  ?>> 下著
+						<input type="radio" name="category" value="overall" <?php echo ($cate_id==2 && $cate) ?  "checked" : "" ;  ?>> 連身衣
+					</td></tr> 
+                    <tr><td><div style="min-width:20px;">store</div><input type="text"  name="store" value="<?php echo $cloth_detail[0]['store_id'];?>"/></td></tr> 
+                    <tr><td><div style="min-width:20px;">info</div><!--<input type="textarea" rows="6"
+                        cols="40"/>--><textarea name="text_info" rows="10" cols="30" ><?php echo $cloth_detail[0]["cloth_info"];?></textarea>
+                    </td></tr> 
+                </table>
+                </div>
+            </div>
+        </form>
+    
+    </body>
+    </html>
 
 

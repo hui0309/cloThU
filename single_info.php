@@ -55,7 +55,6 @@
     <body>
     
     
-        <form id="mfrom" method="post" action="single_update.php">
             <div class="menu">
                 <a href="single.php"> <div style="text-align:right;padding-top:10px; color:black; ">離開</div></a>
                 
@@ -67,27 +66,28 @@
                             圖片
                             </div>
                         </td>
-                        <td>
-                            <div style="text-align:right; padding-top:75%; "> <button class="button" onclick="">刪除</button></div>
-                        </td>
-                        <td>
-                            <div style="text-align:right; padding-top:75%; "> <input type="submit" class="button" onclick="" value="完成"></div>
-                        </td>
+                        <form id="mfrom" method="post" action="single_update.php">
+                           <td>
+                             <div style="text-align:right; padding-top:75%; "> <input type="submit" class="button" onclick="" value="修改"></div>
+                           </td>
+                           <td>
+                             <div style="text-align:right; padding-top:75%; "> <input type="hidden" id="cloth_id" name="cloth_id" value="<?php  echo $cloth_id ?>"></div>
+                           </td>
+                        </form>
+
                     </tr>
                     <tr><td></td><td></td><td></td><td></td><td></td></tr>
                 </table>
                 <table>
                 <tr><td><div style="min-width:20px;"><strong>name: </strong> <?php echo $cloth_detail[0]['cloth_name'] ;?></div></td></tr> 
-                    <tr><td><div style="min-width:20px;"><strong>style: </strong> <?php echo $style_val?></div></td></tr> 
-                    <tr><td><div style="min-width:20px;"><strong>category: </strong> <?php echo $cate_val?></div></td></tr> 
-                    <tr><td><div style="min-width:20px;">store</div><input type="text"  name="store" value=""/></td></tr> 
-                    <tr><td><div style="min-width:20px;">info</div><!--<input type="textarea" rows="6"
-                        cols="40"/>--><textarea name="text_info" rows="10" cols="30" placeholder="請輸入衣服簡介(選填).."></textarea>
-                    </td></tr> 
+                    <tr><td><div style="min-width:20px;"><strong>style: </strong> <?php echo ($style==null)?null:  $style_val;?></div></td></tr> 
+                    <tr><td><div style="min-width:20px;"><strong>category: </strong> <?php echo ($cate==null)?null: $cate_val;?></div></td></tr> 
+                    <tr><td><div style="min-width:20px;"><strong>store: </strong> <?php echo $cloth_detail[0]['store_id'] ;?></div></td></tr> 
+                    <tr><td><div style="min-width:20px;"><strong>info: </strong> <?php echo $cloth_detail[0]['cloth_info'] ;?></div></td></tr> 
+                    </tr> 
                 </table>
                 </div>
             </div>
-        </form>
     
     
     
