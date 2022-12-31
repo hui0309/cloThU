@@ -43,7 +43,8 @@ O	store_ID 		bigint(15)
 	
 	}
 	else //變數不存在，未選
-		$cate_num=NULL;
+		$category=NULL;
+	print("trytry $category<br>");
 
 #style
 	if (isset($_POST["style"]))
@@ -67,7 +68,7 @@ O	store_ID 		bigint(15)
 	#	print($cloth_name.'<br>');
 	}
 	else
-		$style_num=NULL;
+		$style=NULL;
 
 #info
 	if (isset($_POST["text_info"]))
@@ -87,36 +88,23 @@ O	store_ID 		bigint(15)
 	else
 		$store=NULL;
 
-	$query = ("select * from cloth_number ");
-	$stmt =  $db -> prepare($query);
-    $error= $stmt -> execute();
+
+
+	/*$query = ("select * from user where user_id = ?");
+    $stmt =  $db -> prepare($query);
+    $error= $stmt -> execute(array($user_id));
 	$result = $stmt -> fetchAll();
-echo count($result);
-//////////////////////////
-	$exist_id=array();
-	for ($i=0;$i<count($result);$i++){
-		array_push($exist_id, $result[$i]['cloth_id']);	
-	}
-
-	sort($exist_id);
-	$cloth_id=0;
-	for ($i=1;$i<=count($exist_id);$i++){
-		if ($exist_id[$i-1]!=$i)
-		{ 	$cloth_id=$i;
-			print("empty $cloth_id<br>");	
-		break;
-		}
-	}
-	if($cloth_id==0)
-		$cloth_id=count($exist_id)+1;
-	print("empty $cloth_id<br>");	
-//////////////////////////
-
+	*/	
+	$query = ("select * from cloth_detail ");
+    $stmt =$db->prepare($query);
+    $error=$stmt->execute();
+	$result=$stmt->fetchALL();
+	$cloth_id=count($result)+1;//當前衣櫃有多少衣服
 	//使用預處理寫法是為了防止「sql injection」
     //設定要使用的SQL指令
 	$query=("insert into cloth_detail values(?,?,?,?,?,?,?)");
 	$stmt=$db->prepare($query);
-	//執行SQL語法 need
+	//執行SQL語法
 	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
 	
 
@@ -129,9 +117,8 @@ echo count($result);
 	foreign key (cloth_ID) references cloth_detail
 	);
 	*/
-$user_id=$_SESSION["user_id"];
-echo $user_id;
-//	$user_id="00957117";
+//$user_id=$_SESSION["user_id"];
+$user_id="00957117";
 
 	//cloth_unmber
 	$query=("insert into cloth_number values(?,?)");
@@ -139,7 +126,7 @@ echo $user_id;
 	//執行SQL語法
 	$result=$stmt->execute(array($user_id,$cloth_id));
 //function_alert("帳號或密碼錯誤"); 
-//header("location:single.php");
+header("location:single.php");
 
 ?>
 

@@ -110,11 +110,12 @@
 
 	</head>
 	<script>
-		function DeleteContent(){
-			//document.getElementById("ToyID").value = document.getElementById("ToyID").value;
-			//document.getElementById("mfrom").action = "toy_delsave.php";
-			//document.getElementById("mfrom").submit();
-		}
+	function DeleteContent(){
+		document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
+		document.getElementById("mfrom").action = "single_delsave.php";
+		document.getElementById("mfrom").submit();
+	}
+	
 	</script>
     <body>
     
@@ -132,7 +133,7 @@
                             </div>
                         </td>
                         <td>
-							<button onclick="UpdateContent()">刪除</button>
+							<button onclick="DeleteContent()">刪除</button>
                         </td>
                         <td>
 							<button onclick="UpdateContent()">更新</button>
@@ -141,6 +142,9 @@
                     <tr><td></td><td></td><td></td><td></td><td></td></tr>
                 </table>
                 <table>
+                    <tr> <td>
+                             <div style="text-align:right; padding-top:75%; "> <input type="hidden" id="cloth_id" name="cloth_id" value="<?php  echo $cloth_id ?>"></div>
+                    </td></tr>
                     <tr><td><div style="min-width:20px;">name</div><input type="text" id="cloth_name" value="<?php echo $cloth_detail[0]['cloth_name']?>" required="required"/></td></tr> 
 					<tr><td><div style="min-width:20px;">style</div>
 						<input type="radio" name="style" value="cute"  <?php echo ($style_id==0 && $style) ?  "checked" : "" ;  ?>> 可愛

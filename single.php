@@ -1,9 +1,13 @@
 <?php
     include("con_db.php");
     session_start();//include這個才能用session
-///$user_id=$_SESSION["user_id"];
-    $user_id="00957117";
-    /*$_SESSION["login"] = false;
+$user_id=$_SESSION["user_id"];
+echo $_SESSION["user_id"];
+if(isset($user_id))echo "存在";
+else echo "not exist";
+if(empty($user_id))echo "不存在";
+
+/*$_SESSION["login"] = false;
     if($_SESSION["login"] == false){
         header('Location: ./index.php');
         exit;  //記得要跳出來，不然會重複轉址過多次
@@ -143,11 +147,12 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
            總數量為: 
         
         <?php
-           $query = ("select * from cloth_number where user_id = ?");
+           $query = ("select cloth_id from cloth_number where user_id = ?");
            $stmt =  $db -> prepare($query);
            $error= $stmt -> execute(array($user_id));
           // $result = $stmt -> fetchAll();
           $mycloth_id = $stmt->fetchAll();
+          sort($mycloth_id);
             echo count($mycloth_id);
         ?>
             
@@ -156,9 +161,17 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
             $stmt =  $db -> prepare($query);
             $error= $stmt -> execute();
             $cloth_detail = $stmt->fetchAll();
+           /* $mycloth_id=array();
+            for($count = 0, $i= 0; $count<count($mycloth_id)&&$i < count($all_cloth_detail); $i++)
+            {if($all_cloth_detail[$i]['cloth_id']==$mycloth_id[$count])
+                {$count++;
+                    array_push($mycloth_id,$all_colth_detail[$i]);        
+                }
+            }*/
 
-            for($my = 0, $count = 0; $count < count($cloth_detail); $count++){
-               if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count]['cloth_id'])
+            for($my = 0, $count = 0; $my < count($mycloth_id)&&$count<count($cloth_detail); $count++)
+            {
+               if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count])
                { // print($cloth_detail[$count]['cloth_name'] );
                ?>
                   
