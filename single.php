@@ -1,7 +1,8 @@
 <?php
     include("con_db.php");
     session_start();//include這個才能用session
-$user_id=$_SESSION["user_id"];
+//$user_id=$_SESSION["user_id"];
+$user_id="00957117";
 echo $_SESSION["user_id"];
 if(isset($user_id))echo "存在";
 else echo "not exist";
@@ -171,7 +172,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
 
             for($my = 0, $count = 0; $my < count($mycloth_id)&&$count<count($cloth_detail); $count++)
             {
-               if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count])
+               if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count]['cloth_id'])
                { // print($cloth_detail[$count]['cloth_name'] );
                ?>
                   

@@ -12,7 +12,7 @@
 		  if (!$success) {
 			echo "刪除失敗!".$stmt->errorInfo();
 		  }else{
-			header('Location: sungle.php');
+			header('Location: single.php');
 		  }
       }
 

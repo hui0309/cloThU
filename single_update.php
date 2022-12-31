@@ -116,6 +116,20 @@
 		document.getElementById("mfrom").submit();
 	}
 	
+
+    function UpdateContent(){
+        //name style category store info
+		document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
+		document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
+		//document.getElementByName("style").value = document.getElementById("style").value;
+		//document.getElementByName("category").value = document.getElementById("category").value;
+		document.getElementById("store").value = document.getElementById("store").value;
+		document.getElementById("text_info").value = document.getElementById("text_info").value;
+        //window.location = "single_updasave.php";
+		document.getElementById("mfrom").action = "single_updasave.php";
+		document.getElementById("mfrom").submit();
+
+	}
 	</script>
     <body>
     

@@ -1,6 +1,7 @@
 <?php
 	include("con_db.php");
 	session_start();
+	echo "rrrrrrrr";
 //	echo $_SESSION["user_id"];
 /*
 	create table cloth_detail( 
@@ -14,6 +15,12 @@ O	store_ID 		bigint(15)
 	primary key(cloth_ID),
 	foreign key (store_ID) references store);
  */
+$cloth_id = $_POST["cloth_id"];
+$query = ("select cloth_detail from cloth_number where cloth_id = ?");
+$stmt =  $db -> prepare($query);
+$error= $stmt -> execute(array($cloth_id));
+// $result = $stmt -> fetchAll();
+$mycloth = $stmt->fetchAll();
 
 
 	$cloth_name = $_POST["cloth_name"];
@@ -40,7 +47,6 @@ O	store_ID 		bigint(15)
 			$cate_id-=1;
 		}
 		print("final val $cate_num <br>");	
-	
 	}
 	else //變數不存在，未選
 		$category=NULL;
@@ -88,14 +94,21 @@ O	store_ID 		bigint(15)
 	else
 		$store=NULL;
 
-
-
+	$sql = "UPDATE cloth_detail SET  WHERE cloth_id= ?";
+	if($stmt = $db->prepare($sql)){
+	$success = $stmt->execute(array($cloth_id,$cloth_name, null, $cloth_category, $cloth_info, $store_ID));
+	if (!$success) {
+		echo "刪除失敗!".$stmt->errorInfo();
+	  }else{
+		header('Location: single.php');
+	  }
+  }
 	/*$query = ("select * from user where user_id = ?");
     $stmt =  $db -> prepare($query);
     $error= $stmt -> execute(array($user_id));
 	$result = $stmt -> fetchAll();
 	*/	
-	$query = ("select * from cloth_detail ");
+	/*$query = ("select * from cloth_detail ");
     $stmt =$db->prepare($query);
     $error=$stmt->execute();
 	$result=$stmt->fetchALL();
@@ -106,25 +119,7 @@ O	store_ID 		bigint(15)
 	$stmt=$db->prepare($query);
 	//執行SQL語法
 	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
-	
-
-	/*
-	create table cloth_number(
-	user_ID	bigint(15) not null,
-	cloth_ID	bigint(15) not null,
-	primary key(user_ID,cloth_ID),
-	foreign key (user_ID) references user,
-	foreign key (cloth_ID) references cloth_detail
-	);
 	*/
-//$user_id=$_SESSION["user_id"];
-$user_id="00957117";
-
-	//cloth_unmber
-	$query=("insert into cloth_number values(?,?)");
-	$stmt=$db->prepare($query);
-	//執行SQL語法
-	$result=$stmt->execute(array($user_id,$cloth_id));
 //function_alert("帳號或密碼錯誤"); 
 header("location:single.php");
 
