@@ -121,9 +121,9 @@
         //name style category store info
 		document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
 		document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
-		//document.getElementByName("style").value = document.getElementById("style").value;
-		//document.getElementByName("category").value = document.getElementById("category").value;
-		document.getElementById("store").value = document.getElementById("store").value;
+//		document.getElementByName("style").value = document.getElementById("style").value;
+//		document.getElementByName("category").value = document.getElementById("category").value;
+	document.getElementById("store").value = document.getElementById("store").value;
 		document.getElementById("text_info").value = document.getElementById("text_info").value;
         //window.location = "single_updasave.php";
 		document.getElementById("mfrom").action = "single_updasave.php";
@@ -159,7 +159,7 @@
                     <tr> <td>
                              <div style="text-align:right; padding-top:75%; "> <input type="hidden" id="cloth_id" name="cloth_id" value="<?php  echo $cloth_id ?>"></div>
                     </td></tr>
-                    <tr><td><div style="min-width:20px;">name</div><input type="text" id="cloth_name" value="<?php echo $cloth_detail[0]['cloth_name']?>" required="required"/></td></tr> 
+                    <tr><td><div style="min-width:20px;">name</div><input type="text" id="cloth_name" name="cloth_name" value="<?php echo $cloth_detail[0]['cloth_name']?>" required="required"/></td></tr> 
 					<tr><td><div style="min-width:20px;">style</div>
 						<input type="radio" name="style" value="cute"  <?php echo ($style_id==0 && $style) ?  "checked" : "" ;  ?>> 可愛
 						<input type="radio" name="style" value="simple" <?php echo ($style_id==1 && $style) ?  "checked" : "" ;  ?>> 簡約
@@ -170,9 +170,9 @@
 						<input type="radio" name="category" value="down" <?php echo ($cate_id==1 && $cate) ?  "checked" : "" ;  ?>> 下著
 						<input type="radio" name="category" value="overall" <?php echo ($cate_id==2 && $cate) ?  "checked" : "" ;  ?>> 連身衣
 					</td></tr> 
-                    <tr><td><div style="min-width:20px;">store</div><input type="text"  name="store" value="<?php echo $cloth_detail[0]['store_id'];?>"/></td></tr> 
+                    <tr><td><div style="min-width:20px;">store</div><input type="text"  id="store" name="store" value="<?php echo $cloth_detail[0]['store_id'];?>"/></td></tr> 
                     <tr><td><div style="min-width:20px;">info</div><!--<input type="textarea" rows="6"
-                        cols="40"/>--><textarea name="text_info" rows="10" cols="30" ><?php echo $cloth_detail[0]["cloth_info"];?></textarea>
+                        cols="40"/>--><textarea id="text_info" name="text_info" rows="10" cols="30" ><?php echo $cloth_detail[0]["cloth_info"];?></textarea>
                     </td></tr> 
                 </table>
                 </div>

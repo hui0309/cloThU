@@ -1,7 +1,6 @@
 <?php
 	include("con_db.php");
 	session_start();
-	echo "rrrrrrrr";
 //	echo $_SESSION["user_id"];
 /*
 	create table cloth_detail( 
@@ -16,11 +15,7 @@ O	store_ID 		bigint(15)
 	foreign key (store_ID) references store);
  */
 $cloth_id = $_POST["cloth_id"];
-$query = ("select cloth_detail from cloth_number where cloth_id = ?");
-$stmt =  $db -> prepare($query);
-$error= $stmt -> execute(array($cloth_id));
-// $result = $stmt -> fetchAll();
-$mycloth = $stmt->fetchAll();
+
 
 
 	$cloth_name = $_POST["cloth_name"];
@@ -29,7 +24,7 @@ $mycloth = $stmt->fetchAll();
 	$style_arr = array("cute", "simple", "grace");
 	//衣服種類的binary
 #category
-	if (isset($_POST["category"]))
+	if (isset($_POST["category"])&&!empty($_POST['category']))
 	{
 		//變數存在
 		$category = $_POST["category"];
@@ -49,11 +44,11 @@ $mycloth = $stmt->fetchAll();
 		print("final val $cate_num <br>");	
 	}
 	else //變數不存在，未選
-		$category=NULL;
-	print("trytry $category<br>");
+		$cate_num=NULL;
+	print("trytry $cate_num<br>");
 
 #style
-	if (isset($_POST["style"]))
+	if (isset($_POST["style"])&&!empty($_POST['style']))
 	{
 
 		$style = $_POST["style"];
@@ -74,10 +69,10 @@ $mycloth = $stmt->fetchAll();
 	#	print($cloth_name.'<br>');
 	}
 	else
-		$style=NULL;
+		$style_num=NULL;
 
 #info
-	if (isset($_POST["text_info"]))
+	if (isset($_POST["text_info"])&&!empty($_POST['text_info']))
 	{
 
 		$text_info = $_POST["text_info"];
@@ -86,7 +81,7 @@ $mycloth = $stmt->fetchAll();
 		$text_info=NULL;
 
 #store
-	if (isset($_POST["store"]))
+	if (isset($_POST["store"])&&!empty($_POST['store']))
 	{
 
 		$store = $_POST["store"];
@@ -94,33 +89,27 @@ $mycloth = $stmt->fetchAll();
 	else
 		$store=NULL;
 
-	$sql = "UPDATE cloth_detail SET  WHERE cloth_id= ?";
-	if($stmt = $db->prepare($sql)){
-	$success = $stmt->execute(array($cloth_id,$cloth_name, null, $cloth_category, $cloth_info, $store_ID));
-	if (!$success) {
+echo "id: ".($cloth_id)."<br>";
+echo "name: ".($cloth_name)."<br>";
+echo "style: ".($style_num)."<br>";
+echo "category: ".($cate_num)."<br>";
+echo "store: ".($store)."<br>";
+echo "info: ".($text_info)."<br>";
+ 
+$sql = "UPDATE cloth_detail  SET cloth_name = ?,
+cloth_style = ?,cloth_img = ?,cloth_category = ?,cloth_info = ?,store_id = ? WHERE cloth_id = ?";
+if($stmt = $db->prepare($sql)){
+	$success = $stmt->execute(array($cloth_name, $style_num, null, $cate_num, $text_info,$store, $cloth_id));
+	if (!$success) 
+	{
 		echo "刪除失敗!".$stmt->errorInfo();
-	  }else{
-		header('Location: single.php');
+	}else{
+	  echo"succeess";
 	  }
-  }
-	/*$query = ("select * from user where user_id = ?");
-    $stmt =  $db -> prepare($query);
-    $error= $stmt -> execute(array($user_id));
-	$result = $stmt -> fetchAll();
-	*/	
-	/*$query = ("select * from cloth_detail ");
-    $stmt =$db->prepare($query);
-    $error=$stmt->execute();
-	$result=$stmt->fetchALL();
-	$cloth_id=count($result)+1;//當前衣櫃有多少衣服
-	//使用預處理寫法是為了防止「sql injection」
-    //設定要使用的SQL指令
-	$query=("insert into cloth_detail values(?,?,?,?,?,?,?)");
-	$stmt=$db->prepare($query);
-	//執行SQL語法
-	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
-	*/
-//function_alert("帳號或密碼錯誤"); 
+}
+
+
+	
 header("location:single.php");
 
 ?>

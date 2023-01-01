@@ -1,7 +1,7 @@
 <?php
 	include("con_db.php");
 	session_start();
-//	echo $_SESSION["user_id"];
+	echo $_SESSION["user_id"];
 /*
 	create table cloth_detail( 
 	cloth_ID 		bigint(15) not null, 
@@ -131,7 +131,7 @@ echo count($result);
 	*/
 //$user_id=$_SESSION["user_id"];
 //echo $user_id;
-	$user_id="00957117";
+	//$user_id="00957117";
 
 	//cloth_unmber
 	$query=("insert into cloth_number values(?,?)");
@@ -139,7 +139,7 @@ echo count($result);
 	//執行SQL語法
 	$result=$stmt->execute(array($user_id,$cloth_id));
 //function_alert("帳號或密碼錯誤"); 
-header("location:single.php");
+//header("location:single.php");
 
 ?>
 
