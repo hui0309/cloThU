@@ -227,7 +227,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         where (ts.user_id=? ) and t.cloth_category=?";
                         $stmt =  $db->prepare($sql);
                         $stmt->execute(array($user_id,$cate_num));
-                        $rows = $stmt->fetchAll();
+                        $cloth_detail = $stmt->fetchAll();
                     }else 
                     {
                         $sql = "SELECT *
@@ -235,17 +235,18 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         where (ts.user_id=? )and (t.cloth_style=?)";
                         $stmt =  $db->prepare($sql);
                         $stmt->execute(array($user_id,$style_num));
-                        $rows = $stmt->fetchAll();
+                        $cloth_detail = $stmt->fetchAll();
                     }
-                    echo count($rows);
-                    for( $count = 0; $count < count($rows); $count++){
+                    echo count($cloth_detail);
+                    for( $count = 0; $count < count($cloth_detail); $count++){
                         ?>
                             <tr>
                                 <th scope="row"><?php echo $count+1;?></th> 
                                 <form id="mfrom" method="post" action="single_info.php">
-                                <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $rows[$count]['cloth_id'] ;?>"/></td>
-                                <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $rows[$count]['cloth_name'] ;?>"/></td>
-                                <td><img src="hamster.jpg"></td>
+                                <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
+                                <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
+                                <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
+                                <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>            
                                 </form>
                             </tr><?php
                     }
@@ -269,18 +270,19 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                     if($stmt = $db->prepare($sql)){
 						//$stmt->execute(array($keyword,$keyword));
                         $stmt->execute(array($user_id,$keyword));
-                        $rows = $stmt->fetchAll();
-                        echo count($rows);
+                        $cloth_detail = $stmt->fetchAll();
+                        echo count($cloth_detail);
 
 						//$stmt->execute(array($user_id));
-						for( $count = 0; $count < count($rows); $count++){
+						for( $count = 0; $count < count($cloth_detail); $count++){
 			        ?>
 						<tr>
                             <th scope="row"><?php echo $count+1;?></th> 
                             <form id="mfrom" method="post" action="single_info.php">
-                            <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $rows[$count]['cloth_id'] ;?>"/></td>
-                            <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $rows[$count]['cloth_name'] ;?>"/></td>
-                            <td><img src="hamster.jpg"></td>
+                            <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
+                            <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
+                            <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
+                            <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>
                             </form>
                         </tr>
 			<?php
