@@ -6,7 +6,7 @@
 //	echo $_POST['cloth_id'];
 	$cloth_id=$_POST["cloth_id"];
 	
-	$query = ("select * from cloth_detail where cloth_id=?");
+    $query = ("select * from cloth_detail t left join store ts on (t.store_id=ts.store_id) where cloth_id=?");
     $stmt =  $db -> prepare($query);
     $error= $stmt -> execute(array($cloth_id));
     $cloth_detail = $stmt->fetchAll();
@@ -121,6 +121,7 @@
         //name style category store info
 		document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
 		document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
+		document.getElementById("cloth_img").value = document.getElementById("cloth_img").value;
 //		document.getElementByName("style").value = document.getElementById("style").value;
 //		document.getElementByName("category").value = document.getElementById("category").value;
 	document.getElementById("store").value = document.getElementById("store").value;
@@ -142,10 +143,10 @@
             <div class="content">
                 <table style="height:50%;width:80%;">
                     <tr>
-                        <td colspan="3"><div  style="height:100%;width:100%;background:gray;">
-                            圖片
-                            </div>
-                        </td>
+                        <td colspan="3"><img src="<?php echo $cloth_detail[0]['cloth_img'];?>">
+                    <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[0]['cloth_img'] ;?>"/></td>
+                        
+                    </td>
                         <td>
 							<button onclick="DeleteContent()">刪除</button>
                         </td>
@@ -170,7 +171,7 @@
 						<input type="radio" name="category" value="down" <?php echo ($cate_id==1 && $cate) ?  "checked" : "" ;  ?>> 下著
 						<input type="radio" name="category" value="overall" <?php echo ($cate_id==2 && $cate) ?  "checked" : "" ;  ?>> 連身衣
 					</td></tr> 
-                    <tr><td><div style="min-width:20px;">store</div><input type="text"  id="store" name="store" value="<?php echo $cloth_detail[0]['store_id'];?>"/></td></tr> 
+                    <tr><td><div style="min-width:20px;">store</div><input type="text"  id="store" name="store" value="<?php echo $cloth_detail[0]['store_name'];?>"/></td></tr> 
                     <tr><td><div style="min-width:20px;">info</div><!--<input type="textarea" rows="6"
                         cols="40"/>--><textarea id="text_info" name="text_info" rows="10" cols="30" ><?php echo $cloth_detail[0]["cloth_info"];?></textarea>
                     </td></tr> 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-01-01 18:19:40
+-- 產生時間： 2023-01-02 20:47:02
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -31,7 +31,7 @@ CREATE TABLE `cloth_detail` (
   `cloth_id` bigint(15) NOT NULL,
   `cloth_name` varchar(20) CHARACTER SET utf8 NOT NULL,
   `cloth_style` int(20) DEFAULT NULL,
-  `cloth_img` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `cloth_img` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `cloth_category` int(20) DEFAULT NULL,
   `cloth_info` varchar(120) CHARACTER SET utf8 DEFAULT NULL,
   `store_id` bigint(15) DEFAULT NULL
@@ -42,11 +42,10 @@ CREATE TABLE `cloth_detail` (
 --
 
 INSERT INTO `cloth_detail` (`cloth_id`, `cloth_name`, `cloth_style`, `cloth_img`, `cloth_category`, `cloth_info`, `store_id`) VALUES
-(1, 'try', 1, NULL, 1, 'erdgtfhyjh', 1),
-(2, 'try2', 2, NULL, 2, 'qq33q', 0),
-(3, 'try3', 4, NULL, 4, 'qewfdsrgtyuiyouytre', 0),
-(4, 'yuitrsiopohgf', 2, NULL, 1, NULL, NULL),
-(6, 'wafrdtg', 2, NULL, 1, 'weaara', 2);
+(1, 'sss', NULL, NULL, NULL, NULL, 3),
+(2, 'sssssssss', NULL, NULL, NULL, NULL, 1),
+(3, 'eeee', NULL, NULL, NULL, NULL, 2),
+(4, 'sddsds', NULL, 'https://i.imgur.com/7y2qKdn.jpg', 4, NULL, NULL);
 
 --
 -- 已傾印資料表的索引

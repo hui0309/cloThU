@@ -2,7 +2,7 @@
     include("con_db.php");
     $cloth_id = $_POST["cloth_id"];
     
-    $query = ("select * from cloth_detail where cloth_id=?");
+    $query = ("select * from cloth_detail t left join store ts on (t.store_id=ts.store_id) where cloth_id=?");
     $stmt =  $db -> prepare($query);
     $error= $stmt -> execute(array($cloth_id));
     $cloth_detail = $stmt->fetchAll();
@@ -62,9 +62,9 @@
             <div class="content">
                 <table style="height:50%;width:80%;">
                     <tr>
-                        <td colspan="3"><div  style="height:100%;width:100%;background:gray;">
-                            圖片
-                            </div>
+                        <td colspan="3">
+                           <img src="<?php echo $cloth_detail[0]['cloth_img'];?>"></td>
+                 <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[0]['cloth_img'] ;?>"/></td>
                         </td>
                         <form id="mfrom" method="post" action="single_update.php">
                            <td>
@@ -81,8 +81,8 @@
                 <table>
                 <tr><td><div style="min-width:20px;"><strong>name: </strong> <?php echo $cloth_detail[0]['cloth_name'] ;?></div></td></tr> 
                     <tr><td><div style="min-width:20px;"><strong>style: </strong> <?php echo ($style==null)?null:  $style_val;?></div></td></tr> 
-                    <tr><td><div style="min-width:20px;"><strong>category: </strong> <?php echo ($cate==null)?null: $cate_val;?></div></td></tr> 
-                    <tr><td><div style="min-width:20px;"><strong>store: </strong> <?php echo $cloth_detail[0]['store_id'] ;?></div></td></tr> 
+                    <tr><td><div style="min-width:20px;"><strong>category: </strong> <?php echo ($cate==null)?null: $cate_val;?></div></td></tr>
+                    <tr><td><div style="min-width:20px;"><strong>store: </strong> <?php echo $cloth_detail[0]['store_name'] ;?></div></td></tr> 
                     <tr><td><div style="min-width:20px;"><strong>info: </strong> <?php echo $cloth_detail[0]['cloth_info'] ;?></div></td></tr> 
                     </tr> 
                 </table>

@@ -327,7 +327,10 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                  <form id="mfrom" method="post" action="single_info.php">
                  <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
                  <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
-                 <td><img src="hamster.jpg"></td>
+                 <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
+                 <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>
+               
+                 
                  </form>
                </tr>
 

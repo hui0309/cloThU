@@ -81,13 +81,43 @@ $cloth_id = $_POST["cloth_id"];
 		$text_info=NULL;
 
 #store
-	if (isset($_POST["store"])&&!empty($_POST['store']))
-	{
+if (isset($_POST["store"])&&!empty($_POST["store"]))
+{
 
-		$store = $_POST["store"];
+	$store_name = $_POST["store"];
+	//echo "這".($store_name)."kkk<br>";
+	$query = ("select * from store ");
+	$stmt =  $db -> prepare($query);
+	   $error= $stmt -> execute();
+	$result = $stmt -> fetchAll();
+	echo "total ".count($result)."<br>";
+	$store_id=0;
+	//////////////////////////
+	for ($i=0;$i<count($result);$i++){
+		echo "arr".$result[$i]['store_name']."kk<br>";
+		echo "my".$store_name."kk<br>";
+		if(strval($result[$i]['store_name'])==strval($store_name))
+		{$store_id=$i+1;
+		echo "have same";}
 	}
-	else
-		$store=NULL;
+	if($store_id==0){$store_id=count($result)+1;
+	$query=("insert into store values(?,?)");
+	$stmt=$db->prepare($query);
+	//執行SQL語法 need
+	$result=$stmt->execute(array($store_id,$store_name));
+	}
+}
+else
+	$store=NULL;
+
+#img
+if (isset($_POST["cloth_img"])&&!empty($_POST["cloth_img"]))
+{
+
+	$img = $_POST["cloth_img"];
+}
+else
+	$img=NULL;
 
 echo "id: ".($cloth_id)."<br>";
 echo "name: ".($cloth_name)."<br>";
@@ -99,7 +129,7 @@ echo "info: ".($text_info)."<br>";
 $sql = "UPDATE cloth_detail  SET cloth_name = ?,
 cloth_style = ?,cloth_img = ?,cloth_category = ?,cloth_info = ?,store_id = ? WHERE cloth_id = ?";
 if($stmt = $db->prepare($sql)){
-	$success = $stmt->execute(array($cloth_name, $style_num, null, $cate_num, $text_info,$store, $cloth_id));
+	$success = $stmt->execute(array($cloth_name, $style_num, $img, $cate_num, $text_info,$store_id, $cloth_id));
 	if (!$success) 
 	{
 		echo "刪除失敗!".$stmt->errorInfo();

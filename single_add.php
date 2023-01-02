@@ -70,7 +70,7 @@ O	store_ID 		bigint(15)
 		$style_num=NULL;
 
 #info
-	if (isset($_POST["text_info"]))
+	if (isset($_POST["text_info"])&&!empty($_POST["text_info"]))
 	{
 
 		$text_info = $_POST["text_info"];
@@ -79,13 +79,42 @@ O	store_ID 		bigint(15)
 		$text_info=NULL;
 
 #store
-	if (isset($_POST["store"]))
+	if (isset($_POST["store"])&&!empty($_POST["store"]))
 	{
 
-		$store = $_POST["store"];
+		$store_name = $_POST["store"];
+		//echo "這".($store_name)."kkk<br>";
+		$query = ("select * from store ");
+		$stmt =  $db -> prepare($query);
+   		$error= $stmt -> execute();
+		$result = $stmt -> fetchAll();
+		echo "total ".count($result)."<br>";
+		$store_id=0;
+		//////////////////////////
+		for ($i=0;$i<count($result);$i++){
+			echo "arr".$result[$i]['store_name']."kk<br>";
+			echo "my".$store_name."kk<br>";
+			if(strval($result[$i]['store_name'])==strval($store_name))
+			{$store_id=$i+1;
+			echo "have same";}
+		}
+		if($store_id==0){$store_id=count($result)+1;
+		$query=("insert into store values(?,?)");
+		$stmt=$db->prepare($query);
+		//執行SQL語法 need
+		$result=$stmt->execute(array($store_id,$store_name));
+		}
 	}
 	else
 		$store=NULL;
+#img
+if (isset($_POST["img"])&&!empty($_POST["img"]))
+{
+
+	$img = $_POST["img"];
+}
+else
+	$img=NULL;
 
 	$query = ("select * from cloth_number ");
 	$stmt =  $db -> prepare($query);
@@ -117,7 +146,7 @@ echo count($result);
 	$query=("insert into cloth_detail values(?,?,?,?,?,?,?)");
 	$stmt=$db->prepare($query);
 	//執行SQL語法 need
-	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,null,$cate_num,$text_info,$store));
+	$result=$stmt->execute(array($cloth_id,$cloth_name,$style_num,$img,$cate_num,$text_info,$store_id));
 	
 
 	/*
@@ -131,7 +160,7 @@ echo count($result);
 	*/
 //$user_id=$_SESSION["user_id"];
 //echo $user_id;
-	//$user_id="00957117";
+	$user_id="00957117";
 
 	//cloth_unmber
 	$query=("insert into cloth_number values(?,?)");
@@ -139,7 +168,7 @@ echo count($result);
 	//執行SQL語法
 	$result=$stmt->execute(array($user_id,$cloth_id));
 //function_alert("帳號或密碼錯誤"); 
-//header("location:single.php");
+header("location:single.php");
 
 ?>
 
