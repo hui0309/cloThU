@@ -60,6 +60,30 @@ $cate_val = $category_arr[$cate_id];
     <script src="external/jquery/jquery.js"></script>
     <script src="jquery-ui.js"></script>
 
+    <script>
+        function DeleteContent() {
+            document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
+            document.getElementById("mfrom").action = "single_delsave.php";
+            document.getElementById("mfrom").submit();
+        }
+
+
+        function UpdateContent() {
+            //name style category store info
+            document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
+            document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
+            document.getElementById("cloth_img").value = document.getElementById("cloth_img").value;
+            //		document.getElementByName("style").value = document.getElementById("style").value;
+            //		document.getElementByName("category").value = document.getElementById("category").value;
+            document.getElementById("store").value = document.getElementById("store").value;
+            document.getElementById("text_info").value = document.getElementById("text_info").value;
+            //window.location = "single_updasave.php";
+            document.getElementById("mfrom").action = "single_updasave.php";
+            document.getElementById("mfrom").submit();
+
+        }
+    </script>
+
 </head>
 
 <body>
@@ -146,7 +170,7 @@ $cate_val = $category_arr[$cate_id];
                         </div>
                         <div class="col-8 col-sm-7 d-flex align-items-center">
                             <h5 class="overflow-auto">
-                            <?php echo $cloth_detail[0]['cloth_info']; ?>
+                                <?php echo $cloth_detail[0]['cloth_info']; ?>
                             </h5>
                         </div>
                     </div>
@@ -157,15 +181,168 @@ $cate_val = $category_arr[$cate_id];
                             <a href="single.php"><button type="button" class="btn btn-secondary">離開</button></a>
                         </div>
                         <div class="col6 col-sm-6 d-flex align-items-center align-self-center">
-                            <form id="mfrom" method="post" action="single_update.php" class="d-flex align-items-center align-self-center">
-                            <input type="hidden" id="cloth_id" name="cloth_id" value="<?php echo $cloth_id ?>">    
-                            <button type="submit" class="btn btn-outline-dark d-flex align-self-center" value="修改">修改</button>
-                            </form>
+                            <!-- <form id="mfrom" method="post" action="single_update.php"
+                                class="d-flex align-items-center align-self-center">
+                                <input type="hidden" id="cloth_id" name="cloth_id" value="<?php echo $cloth_id ?>">
+                                <button type="submit"
+                                    class="btn btn-outline-dark d-flex align-self-center  align-items-center"
+                                    value="修改">修改</button>
+                            </form> -->
+                            <button type="button"
+                                class="btn btn-outline-dark d-flex align-self-center  align-items-center" value="修改"
+                                data-bs-toggle="modal" data-bs-target="#modifyModal">修改</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-0 col-sm-1 col-md-2"></div>
+        </div>
+
+
+        <!-- Modal -->
+        <?php
+        $cloth_id = $_POST["cloth_id"];
+        $query = ("select * from cloth_detail t left join store ts on (t.store_id=ts.store_id) where cloth_id=?");
+        $stmt = $db->prepare($query);
+        $error = $stmt->execute(array($cloth_id));
+        $cloth_detail = $stmt->fetchAll();
+        //    echo $cloth_detail[0]['cloth_name'];
+        //   $style_arr = array("可愛", "簡約", "優雅");
+        $style = $cloth_detail[0]['cloth_style'];
+        $style_id = 0; #在arr中第幾個 2^style_id
+        while ($style > 1) {
+            $style = floor($style / 2);
+            $style_id += 1;
+        }
+        //    $style_val=$style_arr[$style_id];
+        
+
+        //    $category_arr = array("上衣", "下著", "連身衣");
+        $cate = $cloth_detail[0]['cloth_category'];
+        //print("ddd $cate");
+        $cate_id = 0; #在arr中第幾個 2^style_id
+        while ($cate > 1) {
+            $cate = floor($cate / 2);
+            $cate_id += 1;
+        }
+        //    $cate_val=$category_arr[$cate_id];
+        
+        ?>
+        <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modifyModalLabel">修改服裝資訊</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="mfrom" method="post" action="">
+                        <input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[0]['cloth_id'] ;?>"/>
+                            <div class="row d-flex align-items-center mb-2">
+                                <img src="<?php echo $cloth_detail[0]['cloth_img']; ?>">
+                            </div>
+                            <div class="row d-flex align-items-center mb-2">
+                                <div class="col-sm-3 col-4 ">
+                                    衣服圖片
+                                </div>
+                                <div class="col-sm-9 col-8">
+                                    <input class="form-control me-2 align-items-center" type="text"
+                                        value="<?php echo $cloth_detail[0]['cloth_img']; ?>" aria-label="Search" id="cloth_img" name="cloth_img" />
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2">
+                                <div class="col-sm-3 col-4">
+                                    衣服名稱
+                                </div>
+                                <div class="col-sm-9 col-8">
+                                    <input class="form-control me-2 align-items-center" type="text" value="<?php echo $cloth_detail[0]['cloth_name']?>"
+                                        aria-label="Search" id="cloth_name" name="cloth_name" required="required" />
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2 ">
+                                <div class="col-sm-3 col-4">分類</div>
+                                <div class="col-sm-9 col-8">
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-2">
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="top" id="上衣"
+                                                name="category" <?php echo ($cate_id==0 && $cate) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="上衣">
+                                                上衣
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="down" id="下著"
+                                                name="category"  <?php echo ($cate_id==1 && $cate) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="下著">
+                                                下著
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="overall" id="連身衣"
+                                                name="category" <?php echo ($cate_id==2 && $cate) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="連身衣">
+                                                連身衣
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2 ">
+                                <div class="col-sm-3 col-4">風格</div>
+                                <div class="col-sm-9 col-8">
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-2">
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="cute" id="可愛"
+                                                name="style" <?php echo ($style_id==0 && $style) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="可愛">
+                                                可愛
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="simple" id="簡約"
+                                                name="style" <?php echo ($style_id==1 && $style) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="簡約">
+                                                簡約
+                                            </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" value="grace" id="優雅"
+                                                name="style" <?php echo ($style_id==2 && $style) ?  "checked" : "" ;  ?>/>
+                                            <label class="form-check-label text-nowrap" for="優雅">
+                                                優雅
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2">
+                                <div class="col-sm-3 col-4">
+                                    商店
+                                </div>
+                                <div class="col-sm-9 col-8">
+                                    <input class="form-control me-2 align-items-center" type="text"
+                                        value="<?php echo $cloth_detail[0]['store_name'];?>" aria-label="Search" name="store" id="store"/>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2">
+                                <div class="col-sm-3 col-4">
+                                    Info
+                                </div>
+                                <div class="col-sm-9 col-8  d-flex align-items-start">
+                                    <textarea id="text_info" name="text_info" rows="5" cols="30" >
+                                    <?php echo $cloth_detail[0]["cloth_info"];?>
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center mb-2">
+                            <button class="btn btn-outline-success text-nowrap" type="submit" onclick="UpdateContent()">
+                                更新
+                            </button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>
