@@ -475,17 +475,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                             </div>
                             <div class="modal-body">
                                 <form id="mfrom" method="post" action="single_add.php">
-                                    <!-- <table style="height:50%;width:80%;">
-                    <tr>
-                       
-                        <td>
-                             <button class="button" onclick="">刪除</button>
-                        </td>
-                        <td>
-                            <input type="submit" class="button" onclick="" value="完成">
-                        </td>
-                    </tr>
-                </table> -->
+
                                     <div class="row d-flex align-items-center mb-2">
                                         <div class="col-sm-3 col-4 ">
                                             衣服圖片
@@ -563,11 +553,20 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     </div>
                                     <div class="row d-flex align-items-center mb-2">
                                         <div class="col-sm-3 col-4">
+                                            商店
+                                        </div>
+                                        <div class="col-sm-9 col-8">
+                                            <input class="form-control me-2 align-items-center" type="text"  
+                                                placeholder="請輸入購買衣服的商店" aria-label="Search"
+                                                name="store"/>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex align-items-center mb-2">
+                                        <div class="col-sm-3 col-4">
                                             info
                                         </div>
                                         <div class="col-sm-9 col-8  d-flex align-items-start">
-                                        <textarea name="text_info" rows="5" cols="30"
-                                        placeholder="請輸入衣服簡介(選填)..">
+                                            <textarea name="text_info" rows="5" cols="30" placeholder="請輸入衣服簡介(選填)..">
                                     </textarea>
                                         </div>
                                     </div>
