@@ -290,7 +290,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                         where (ts.user_id=? )and (t.cloth_style=?) and t.cloth_category=?";
                     $stmt = $db->prepare($sql);
                     $stmt->execute(array($id, $style_num, $cate_num));
-                    $rows = $stmt->fetchAll();
+                    $cloth_detail = $stmt->fetchAll();
                 } elseif (isset($_POST["category"])) {
                     $sql = "SELECT *
                         FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
@@ -414,20 +414,20 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                     sort($mycloth_id);
                     // echo count($mycloth_id);
                 
-                    $query = ("select * from cloth_detail ");
-                    $stmt = $db->prepare($query);
-                    $error = $stmt->execute();
-                    $cloth_detail = $stmt->fetchAll();
-
-                    $sql = "SELECT *
-            FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
-            where (ts.user_id=? )"; ?>
+           //subquery
+           $sql = "SELECT *
+           FROM cloth_detail 
+           where cloth_id IN (select cloth_id from cloth_number where cloth_number.user_id=?)"; 
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array($id));
+            $cloth_detail = $stmt->fetchAll();
+            ?>
 
                     <div
                         class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
                         <?php
-                        for ($my = 0, $count = 0; $my < count($mycloth_id) && $count < count($cloth_detail); $count++) {
-                            if ($mycloth_id[$my]['cloth_id'] == $cloth_detail[$count]['cloth_id']) { // print($cloth_detail[$count]['cloth_name'] );
+                         for ($i = 0, $count = 0; $count < count($cloth_detail); $count++)  {
+                             // print($cloth_detail[$count]['cloth_name'] );
                                 ?>
 
                                 <div class="col d-flex justify-content-center mb-3">
@@ -451,9 +451,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                         </form>
                                     </div>
                                 </div>
-                                <?php $my += 1;
-
-                            }
+                                <?php 
                         }
             } ?>
 
