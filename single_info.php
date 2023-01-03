@@ -46,14 +46,12 @@ $cate_val = $category_arr[$cate_id];
         body {
             background-color: white;
         }
-
-        /* a {
-            text-decoration: none;
-            color: white;
-            font-family: 微軟正黑體, 新細明體, 標楷體;
-            font-weight: bold;
-            font-size: 17px;
-        } */
+        a {
+			text-decoration: none;
+			font-family: 微軟正黑體, 新細明體, 標楷體;
+			font-weight: bold;
+			font-size: 17px;
+		}
     </style>
     <link href="jquery-ui.css" rel="stylesheet" />
     <script src="external/jquery/jquery.js"></script>
@@ -156,7 +154,7 @@ $cate_val = $category_arr[$cate_id];
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="person.php">個人資訊</a>
+                                    <a class="nav-link" href="person.php" style="color: gray">個人資訊</a>
                                 </li>
                             </ul>
                         </div>

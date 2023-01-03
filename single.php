@@ -31,7 +31,12 @@ exit;  //記得要跳出來，不然會重複轉址過多次
         body {
             text-align: center;
         }
-
+        a {
+			text-decoration: none;
+			font-family: 微軟正黑體, 新細明體, 標楷體;
+			font-weight: bold;
+			font-size: 17px;
+		}
         .menu {
             position: fixed;
             width: 100%;
@@ -118,7 +123,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="person.php">個人資訊</a>
+                                    <a class="nav-link" href="person.php" style="color: gray">個人資訊</a>
                                 </li>
                             </ul>
                         </div>
