@@ -83,7 +83,14 @@ $cate_val = $category_arr[$cate_id];
 
         }
     </script>
+    <script>
+        $(document).ready(() => {
+            $("#cloth_img").bind("change paste keyup", function () {
+                $('#showimg').attr("src", $("#cloth_img").val());
+            });
+        });
 
+    </script>
 </head>
 
 <body>
@@ -237,9 +244,10 @@ $cate_val = $category_arr[$cate_id];
                     </div>
                     <div class="modal-body">
                         <form id="mfrom" method="post" action="">
-                        <input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[0]['cloth_id'] ;?>"/>
+                            <input type="hidden" id="cloth_id" name="cloth_id"
+                                value="<?php echo $cloth_detail[0]['cloth_id']; ?>" />
                             <div class="row d-flex align-items-center mb-2">
-                                <img src="<?php echo $cloth_detail[0]['cloth_img']; ?>">
+                                <img id="showimg" src="<?php echo $cloth_detail[0]['cloth_img']; ?>">
                             </div>
                             <div class="row d-flex align-items-center mb-2">
                                 <div class="col-sm-3 col-4 ">
@@ -247,7 +255,8 @@ $cate_val = $category_arr[$cate_id];
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input class="form-control me-2 align-items-center" type="text"
-                                        value="<?php echo $cloth_detail[0]['cloth_img']; ?>" aria-label="Search" id="cloth_img" name="cloth_img" />
+                                        value="<?php echo $cloth_detail[0]['cloth_img']; ?>" aria-label="Search"
+                                        id="cloth_img" name="cloth_img" />
                                 </div>
                             </div>
                             <div class="row d-flex align-items-center mb-2">
@@ -255,8 +264,9 @@ $cate_val = $category_arr[$cate_id];
                                     衣服名稱
                                 </div>
                                 <div class="col-sm-9 col-8">
-                                    <input class="form-control me-2 align-items-center" type="text" value="<?php echo $cloth_detail[0]['cloth_name']?>"
-                                        aria-label="Search" id="cloth_name" name="cloth_name" required="required" />
+                                    <input class="form-control me-2 align-items-center" type="text"
+                                        value="<?php echo $cloth_detail[0]['cloth_name'] ?>" aria-label="Search"
+                                        id="cloth_name" name="cloth_name" required="required" />
                                 </div>
                             </div>
                             <div class="row d-flex align-items-center mb-2 ">
@@ -265,21 +275,21 @@ $cate_val = $category_arr[$cate_id];
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-2">
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="top" id="上衣"
-                                                name="category" <?php echo ($cate_id==0 && $cate) ?  "checked" : "" ;  ?>/>
+                                                name="category" <?php echo ($cate_id == 0 && $cate) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="上衣">
                                                 上衣
                                             </label>
                                         </div>
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="down" id="下著"
-                                                name="category"  <?php echo ($cate_id==1 && $cate) ?  "checked" : "" ;  ?>/>
+                                                name="category" <?php echo ($cate_id == 1 && $cate) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="下著">
                                                 下著
                                             </label>
                                         </div>
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="overall" id="連身衣"
-                                                name="category" <?php echo ($cate_id==2 && $cate) ?  "checked" : "" ;  ?>/>
+                                                name="category" <?php echo ($cate_id == 2 && $cate) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="連身衣">
                                                 連身衣
                                             </label>
@@ -293,21 +303,21 @@ $cate_val = $category_arr[$cate_id];
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-2">
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="cute" id="可愛"
-                                                name="style" <?php echo ($style_id==0 && $style) ?  "checked" : "" ;  ?>/>
+                                                name="style" <?php echo ($style_id == 0 && $style) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="可愛">
                                                 可愛
                                             </label>
                                         </div>
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="simple" id="簡約"
-                                                name="style" <?php echo ($style_id==1 && $style) ?  "checked" : "" ;  ?>/>
+                                                name="style" <?php echo ($style_id == 1 && $style) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="簡約">
                                                 簡約
                                             </label>
                                         </div>
                                         <div class="form-check col">
                                             <input class="form-check-input" type="radio" value="grace" id="優雅"
-                                                name="style" <?php echo ($style_id==2 && $style) ?  "checked" : "" ;  ?>/>
+                                                name="style" <?php echo ($style_id == 2 && $style) ? "checked" : ""; ?> />
                                             <label class="form-check-label text-nowrap" for="優雅">
                                                 優雅
                                             </label>
@@ -321,7 +331,8 @@ $cate_val = $category_arr[$cate_id];
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input class="form-control me-2 align-items-center" type="text"
-                                        value="<?php echo $cloth_detail[0]['store_name'];?>" aria-label="Search" name="store" id="store"/>
+                                        value="<?php echo $cloth_detail[0]['store_name']; ?>" aria-label="Search"
+                                        name="store" id="store" />
                                 </div>
                             </div>
                             <div class="row d-flex align-items-center mb-2">
@@ -329,15 +340,26 @@ $cate_val = $category_arr[$cate_id];
                                     Info
                                 </div>
                                 <div class="col-sm-9 col-8  d-flex align-items-start">
-                                    <textarea id="text_info" name="text_info" rows="5" cols="30" >
-                                    <?php echo $cloth_detail[0]["cloth_info"];?>
+                                    <textarea id="text_info" name="text_info" rows="5" cols="30">
+                                    <?php echo $cloth_detail[0]["cloth_info"]; ?>
                                     </textarea>
                                 </div>
                             </div>
                             <div class="row d-flex align-items-center mb-2">
-                            <button class="btn btn-outline-success text-nowrap" type="submit" onclick="UpdateContent()">
-                                更新
-                            </button>
+                                <div class="col-6 d-flex align-items-center align-self-center justify-content-center">
+                                    <button class="btn btn-outline-success text-nowrap" type="submit"
+                                        onclick="UpdateContent()">
+                                        更新
+                                    </button>
+                                </div>
+                                <div class="col-6 d-flex align-items-center align-self-center justify-content-center">
+                                    <div class=" d-flex align-items-center ">
+                                    <button class="btn btn-outline-danger text-nowrap " type="submit"
+                                        onclick="DeleteContent()">
+                                        刪除
+                                    </button>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                     </form>

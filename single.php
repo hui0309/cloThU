@@ -1,9 +1,9 @@
 <?php
-    include("session_init.php");
-  if(!isset($_SESSION["user_id"])){
-      header('Location: ./index.php');
-      exit;
-  }
+include("session_init.php");
+if (!isset($_SESSION["user_id"])) {
+    header('Location: ./index.php');
+    exit;
+}
 //echo $id;
 //echo "id".($_SESSION["user_id"]);
 //if(isset($id))echo "存在";
@@ -87,6 +87,9 @@ exit;  //記得要跳出來，不然會重複轉址過多次
             $("#gototop").click(function () {
                 document.body.scrollTop = 0; // For Safari
                 document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            });
+            $("#img").bind("change paste keyup", function () {
+                $('#showimg').attr("src", $("#img").val());
             });
         });
     </script>
@@ -414,44 +417,44 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                     sort($mycloth_id);
                     // echo count($mycloth_id);
                 
-           //subquery
-           $sql = "SELECT *
+                    //subquery
+                    $sql = "SELECT *
            FROM cloth_detail 
-           where cloth_id IN (select cloth_id from cloth_number where cloth_number.user_id=?)"; 
-            $stmt = $db->prepare($sql);
-            $stmt->execute(array($id));
-            $cloth_detail = $stmt->fetchAll();
-            ?>
+           where cloth_id IN (select cloth_id from cloth_number where cloth_number.user_id=?)";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute(array($id));
+                    $cloth_detail = $stmt->fetchAll();
+                    ?>
 
                     <div
                         class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
                         <?php
-                         for ($i = 0, $count = 0; $count < count($cloth_detail); $count++)  {
-                             // print($cloth_detail[$count]['cloth_name'] );
-                                ?>
+                        for ($i = 0, $count = 0; $count < count($cloth_detail); $count++) {
+                            // print($cloth_detail[$count]['cloth_name'] );
+                            ?>
 
-                                <div class="col d-flex justify-content-center mb-3">
-                                    <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
-                                        <form id="mfrom" method="post" action="single_info.php">
-                                            <input type="hidden" id="cloth_id" name="cloth_id"
-                                                value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
+                            <div class="col d-flex justify-content-center mb-3">
+                                <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
+                                    <form id="mfrom" method="post" action="single_info.php">
+                                        <input type="hidden" id="cloth_id" name="cloth_id"
+                                            value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
 
-                                            <input type="hidden" id="cloth_img" name="cloth_img"
-                                                value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
-                                            <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
-                                                alt="..." />
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <input type="submit" id="cloth_name" name="cloth_name" readonly
-                                                        style="border-style:none"
-                                                        value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
-                                                </h5>
-                                            </div>
+                                        <input type="hidden" id="cloth_img" name="cloth_img"
+                                            value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
+                                        <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
+                                            alt="..." />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <input type="submit" id="cloth_name" name="cloth_name" readonly
+                                                    style="border-style:none"
+                                                    value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
+                                            </h5>
+                                        </div>
 
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
-                                <?php 
+                            </div>
+                            <?php
                         }
             } ?>
 
@@ -472,15 +475,18 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="mfrom" method="post" action="single_add.php">
 
+                                <form id="mfrom" method="post" action="single_add.php">
+                                    <div class="row d-flex align-items-center mb-2">
+                                        <img id="showimg" src="https://caree-pro.com/wp/wp-content/themes/careepro/images/no-image.png">
+                                    </div>
                                     <div class="row d-flex align-items-center mb-2">
                                         <div class="col-sm-3 col-4 ">
                                             衣服圖片
                                         </div>
                                         <div class="col-sm-9 col-8">
                                             <input class="form-control me-2 align-items-center" type="text"
-                                                placeholder="請輸入圖片連結" aria-label="Search" id="img" name="img" />
+                                                placeholder="請輸入圖片連結" aria-label="Search" id="img" name="img"/>
                                         </div>
                                     </div>
                                     <div class="row d-flex align-items-center mb-2">
