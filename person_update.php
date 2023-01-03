@@ -11,37 +11,47 @@
   <title>person.php</title>
 </head>
 <body>
-	<div class="menu">
-		<table class="menu_css">
-			<tr>
-                <td><a href = "./single.php">我的衣櫃</a></td>
-                <td><a>個人資訊</a></td>
-			</tr>
-		</table>
-	</div>
+	<div class="menu"></div>
 	<div class="content">
 		<div class="inner_content">
-            <div class = "left">
-                <iframe id = "iframe" src = "./person.html">
-                </iframe>
-            </div>
+            <script>
+                function seepass(see, pass){
+
+                    var but = document.getElementById(see).className;
+                    var pass = (see == "see1" ? "user_cur_pass":"user_new_pass");
+                    var value = document.getElementById(pass).value;
+                    if(but == "far fa-eye"){
+                        document.getElementById(see).classList.remove("fa-eye");
+                        document.getElementById(see).classList.add("fa-eye-slash");
+                        document.getElementById(pass).type = "password";
+                        document.getElementById(pass).value = value;
+                    }
+                    else{
+                        document.getElementById(see).classList.remove("fa-eye-slash");
+                        document.getElementById(see).classList.add("fa-eye");
+                        document.getElementById(pass).type = "text";
+                        document.getElementById(pass).value = value;
+                    }
+                }    
+            </script>
 			<table class="table">
 			  <tbody>
+                    <tr>
+
+                    </te>
 					<tr>
-                        <th scope="row">name</th>
-					    <td><input type="text" id="user_name" readonly/></td> 
+                        <th scope="row">name *</th>
+					    <td><input type="text" id="user_name" maxlength="16"/></td> 
 					</tr> 
                     <tr>
-                        <th scope="row">id</th>
-					    <td><input type="text" id="user_id" readonly/></td> 
+                        <th scope="row">old pass *</th>
+					    <td><input type="password" id="user_cur_pass" maxlength="16"/></td>
+                        <td><input type="button" id = "see1" class="far fa-eye-slash" onclick=seepass(id)></td>
 					</tr> 
                     <tr>
-                        <th scope="row">mail</th>
-					    <td><input type="text" id="user_mail" readonly/></td> 
-					</tr> 
-                    <tr>
-                        <th scope="row">衣服總數:</th>
-					    <td><input type="text" id="cnt" readonly/></td> 
+                        <th scope="row">update pass</th>
+					    <td><input type="password" id="user_new_pass" maxlength="16"/>
+                        <td><input type="button" id = "see2" class="far fa-eye-slash" onclick=seepass(id)></td> 
 					</tr> 
 			  </tbody> 
 			</table>
@@ -56,21 +66,10 @@
             $error= $stmt -> execute(array($id));
             $result = $stmt -> fetchAll();
             $name = $result[0]["user_name"];
-            $mail = $result[0]["user_mail"];
-            $query = ("select * from cloth_number where user_id = ?");
-            $stmt =  $db -> prepare($query);
-            $error= $stmt -> execute(array($id));
-            $result = $stmt -> fetchAll();
-            $cnt = count($result);
+            $img = $result[0]["user_img"];
         ?>
         var user_name = "<?php echo $name; ?>";
         document.getElementById("user_name").value = user_name;
-        var user_id = "<?php echo $id; ?>";
-        document.getElementById("user_id").value = user_id;
-        var user_mail = "<?php echo $mail; ?>";
-        document.getElementById("user_mail").mail = user_mail;
-        var cloth_cnt = "<?php echo $cnt; ?>";
-        document.getElementById("cnt").cnt = cloth_cnt;
     }
 </script>
 <style>
@@ -97,28 +96,6 @@
 		font-weight: bold;
 		font-size: 17px;
 	}
-	.menu_css {
-		float: left;
-		width: 100%;
-		height: inherit;
-		overflow: hidden;
-		font-family: 微軟正黑體,新細明體,標楷體;
-		font-weight: bold;
-		font-size: 17px;
-		color: white;
-		border-spacing: 0px;
-	}
-	.menu_css tr {
-		display: block;
-	}
-	.menu_css td {
-		height: 40px;
-		padding: 0px 15px 0px 15px;
-		white-space: nowrap;
-	}
-	.menu_css td:hover {
-		background-color: black;
-	}
 	.content {
 		position: relative;
 		word-wrap: break-word;
@@ -140,6 +117,9 @@
         position: relative;
 		width: 60%;
         flex-direction: row; 
+	}
+	input[type=text] {
+		color: black;
 	}
 	form {
 		margin-bottom: 0em;

@@ -1,7 +1,7 @@
 <?php
     session_start();
     $user = 'root'; //資料庫使用者名稱
-	$password = 'huahua1018'; //資料庫的密碼
+	$password = 'hjh00957117'; //資料庫的密碼
 	try{
 		$db = new PDO ('mysql: host=localhost;dbname=clothu; charset=utf8', $user, $password);
 		//之後若要結束與資料庫的連線，則使用「$db = null;」
@@ -13,12 +13,6 @@
 	}
     if(isset($_SESSION["user_id"])){
         $id = $_SESSION["user_id"];
-        $query = ("select * from user where user_id = ?");
-        $stmt =  $db -> prepare($query);
-        $error= $stmt -> execute(array($id));
-        $result = $stmt -> fetchAll();
-        $name = $result[0]["user_name"];
-        $mail = $result[0]["user_mail"];
     }
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["target"])){
         $target = $_POST["target"];

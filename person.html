@@ -1,13 +1,20 @@
 <html>
     <body>
-        <form method="post" action="con_db.php">
-            <div class ="img"></div>
-            <div class = "but">
-                <input type = "submit" id = "target" name = "target" value = "登出">
-                <input type = "button" id = "edit" value = "編輯">
-            </div>
-        </form>
+        <div class ="img"></div>
+        <div class = "but">
+            <form method="post" action="con_db.php">
+                <input type = "submit" id = "target" name = "target" value = "登出"/>
+            </form>
+            <input type = "button" id = "edit" value = "編輯"/>
+        </div>
     </body>
+    <script>
+        var btn = document.getElementById("edit");
+        btn.onclick = function () {
+            //alert("jump");
+            parent.location.href = "./person_update.php";
+        }
+    </script>
     <style>
     .img{
 		position: relative;
