@@ -174,21 +174,21 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     <div class="row choose row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 m-2">
                                         <div class="col-sm-2 d-flex justify-content-start">分類：</div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="top" id="上衣"
+                                            <input class="form-check-input" type="radio" value="top" id="上衣"
                                                 name="category" />
                                             <label class="form-check-label text-nowrap" for="上衣">
                                                 上衣
                                             </label>
                                         </div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="down" id="下著"
+                                            <input class="form-check-input" type="radio" value="down" id="下著"
                                                 name="category" />
                                             <label class="form-check-label text-nowrap" for="下著">
                                                 下著
                                             </label>
                                         </div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="overall" id="連身衣"
+                                            <input class="form-check-input" type="radio" value="overall" id="連身衣"
                                                 name="category" />
                                             <label class="form-check-label text-nowrap" for="連身衣">
                                                 連身衣
@@ -198,21 +198,21 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     <div class="row choose row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 m-2">
                                         <div class="col-sm-2 d-flex justify-content-start">風格：</div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="cute" id="可愛"
+                                            <input class="form-check-input" type="radio" value="cute" id="可愛"
                                                 name="style" />
                                             <label class="form-check-label text-nowrap" for="可愛">
                                                 可愛
                                             </label>
                                         </div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="simple" id="簡約"
+                                            <input class="form-check-input" type="radio" value="simple" id="簡約"
                                                 name="style" />
                                             <label class="form-check-label text-nowrap" for="簡約">
                                                 簡約
                                             </label>
                                         </div>
                                         <div class="form-check col">
-                                            <input class="form-check-input" type="checkbox" value="grace" id="優雅"
+                                            <input class="form-check-input" type="radio" value="grace" id="優雅"
                                                 name="style" />
                                             <label class="form-check-label text-nowrap" for="優雅">
                                                 優雅
