@@ -39,38 +39,35 @@
             $user_mail = $_POST["user_mail"];
             $user_pass = password_hash($_POST["user_pass"], PASSWORD_DEFAULT);
             //檢查帳號是否重複
-            $check = ("select * from user where user_id = ?");
+            $check = ("select * from user where user_mail = ?");
             $stmt =  $db -> prepare($check);
-            $error= $stmt -> execute(array($user_id));
+            $error= $stmt -> execute(array($user_mail));
             $result = $stmt -> fetchAll();
+            //catch
             if(count($result) == 0){
-                $check = ("select * from user where user_mail = ?");
-                $stmt =  $db -> prepare($check);
-                $error= $stmt -> execute(array($user_mail));
-                $result = $stmt -> fetchAll();
-                if(count($result) == 0){
-                    //使用預處理寫法是為了防止「sql injection」
-                    //設定要使用的SQL指令
+                try{
                     $ins = ("insert into user values(?,?,?,?,?,?)");
                     $stmt= $db->prepare($ins);
-                    //執行SQL語法
                     $result = $stmt->execute(array($user_id, $user_id, null, $user_pass, $user_mail, false));
-                    $_SESSION["user_id"] = $result[0]["user_id"];
-                    //$_SESSION["user_img"] = $result[0]["user_img"];
-                    echo '<script language="javascript">';
+                    $_SESSION["user_id"] = $user_id;    
+                    echo '<script>';
                     echo 'parent.location.reload();';
                     echo '</script>';
-                    exit;
+                    exit;       
                 }
-                else{
-                    alert("該信箱已有註冊過，請登入","register.html"); 
-                    exit;
+                catch(Exception $e){
+                    //print "hh".$e->getMessage()."ha";
+                    $error = $e->getMessage();
+                    $error = str_replace("'"," ",$error);
+                    //print $error;
+                    alert($error,"./register.html");
+                    die();
                 }
             }
             else{
-                alert("該帳號已有人使用，若之前已註冊過請登入","register.html"); 
+                alert("該信箱已有註冊過，請登入","register.html"); 
                 exit;
-            }        
+            }   
         }
         else if($target == '登出'){
             session_destroy();
