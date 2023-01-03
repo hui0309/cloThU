@@ -1,13 +1,14 @@
 <?php
-    include("con_db.php");
-    session_start();//include這個才能用session
-//$user_id=strval($_SESSION["user_id"]);
-$user_id="00957117";
-echo $user_id;
-//echo "id".($_SESSION["user_id"]);
-if(isset($user_id))echo "存在";
-else echo "not exist";
-if(empty($user_id))echo "不存在";
+  include('con_db.php');
+  if(!isset($_SESSION['login'])){
+      header('Location: ./index.php');
+      exit;
+  }
+    //echo $id;
+    //echo "id".($_SESSION["user_id"]);
+    //if(isset($id))echo "存在";
+    //else echo "not exist";
+    //if(empty($id))echo "不存在";
 
 /*$_SESSION["login"] = false;
     if($_SESSION["login"] == false){
@@ -218,7 +219,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
                         where (ts.user_id=? )and (t.cloth_style=?) and t.cloth_category=?";
                         $stmt =  $db->prepare($sql);
-                        $stmt->execute(array($user_id,$style_num,$cate_num));
+                        $stmt->execute(array($id,$style_num,$cate_num));
                         $rows = $stmt->fetchAll();
                     }elseif(isset($_POST["category"]))
                     {
@@ -226,7 +227,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
                         where (ts.user_id=? ) and t.cloth_category=?";
                         $stmt =  $db->prepare($sql);
-                        $stmt->execute(array($user_id,$cate_num));
+                        $stmt->execute(array($id,$cate_num));
                         $cloth_detail = $stmt->fetchAll();
                     }else 
                     {
@@ -234,7 +235,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
                         where (ts.user_id=? )and (t.cloth_style=?)";
                         $stmt =  $db->prepare($sql);
-                        $stmt->execute(array($user_id,$style_num));
+                        $stmt->execute(array($id,$style_num));
                         $cloth_detail = $stmt->fetchAll();
                     }
                     echo count($cloth_detail);
@@ -269,11 +270,11 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                 <?php  
                     if($stmt = $db->prepare($sql)){
 						//$stmt->execute(array($keyword,$keyword));
-                        $stmt->execute(array($user_id,$keyword));
+                        $stmt->execute(array($id,$keyword));
                         $cloth_detail = $stmt->fetchAll();
                         echo count($cloth_detail);
 
-						//$stmt->execute(array($user_id));
+						//$stmt->execute(array($id));
 						for( $count = 0; $count < count($cloth_detail); $count++){
 			        ?>
 						<tr>
@@ -295,14 +296,14 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
 //aggregate
                 $sql = "SELECT COUNT(*) FROM cloth_number WHERE cloth_number.user_id=?";
 				$stmt =  $db->prepare($sql);
-				$error = $stmt->execute(array($user_id));
+				$error = $stmt->execute(array($id));
 				
 				if($rowcount = $stmt->fetchColumn())
 					echo ($rowcount);
 
                     $query = ("select cloth_id from cloth_number where user_id = ?");
                     $stmt =  $db -> prepare($query);
-                    $error= $stmt -> execute(array($user_id));
+                    $error= $stmt -> execute(array($id));
                    // $result = $stmt -> fetchAll();
                    $mycloth_id = $stmt->fetchAll();
                    sort($mycloth_id);

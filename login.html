@@ -25,14 +25,14 @@ function seepass(){
 <title>登入介面</title>
 </head>
 <body>
-<form method="post" action="login.php">
+<form method="post" action="con_db.php">
     帳號：
     <input type="text" name="user_id" id = "user_id" maxlength="16" ><br/><br/>
     密碼：<!--之後改可選隱藏-->
     <input type="password" id="user_pass" name="user_pass" maxlength="16" >
     <input type="button" id = "see" class="far fa-eye-slash" onclick=seepass()><br><br>
     <input type="button" value="忘記密碼" name="forget">
-    <input type="submit" value="登入" id ="登入" name="submit"><br><br>
+    <input type="submit" value="登入" id ="target" name="target"><br><br>
 </form>
 </body>
 </html>

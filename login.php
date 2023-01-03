@@ -2,7 +2,7 @@
 //include con_db file
 include("con_db.php");
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_id"])){
     $user_id = $_POST["user_id"];
     $user_pass = $_POST["user_pass"];
     $query = ("select * from user where user_id = ?");
@@ -13,13 +13,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $user_curpass = $result[0]["user_pass"];
         if(password_verify($user_pass, $user_curpass)){
             // Store data in session variables
+            session_save_path('/user');
             session_start();
             $_SESSION["login"] = true;
             $_SESSION["user_id"] = $result[0]["user_id"];
             $_SESSION["user_name"] = $result[0]["user_name"];
             $_SESSION["user_mail"] = $result[0]["user_mail"];
             //$_SESSION["user_img"] = $result[0]["user_img"];
-            echo '<script language="javascript">';
+            echo '<script>';
             echo 'parent.location.reload();';
             echo '</script>';
             exit;
@@ -40,9 +41,10 @@ else{
 }
 function alert($message) { 
     // Display the alert box  
-    echo "<script>alert('$message');
-     window.location.href='login.php';
-    </script>";
+    echo "<script>";
+    echo "alert('$message');";
+    echo "window.location.href='login.html';";
+    echo "</script>";
     return false;
 }
 ?>

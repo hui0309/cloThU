@@ -1,16 +1,15 @@
 <?php
-    include("con_db.php");
-    // Initialize the session
-    session_start();
     // Check if the user is already logged in, if yes then redirect him to welcome page
-    if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
+    include("con_db.php");
+    // Processing form data when form is submitted
+    if(isset($_SESSION["login"])){
         header('Location: ./person.php');
-        exit;  //記得要跳出來，不然會重複轉址過多次
+        exit;
     }
 ?>
 <html>
 <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
-<script language = "JavaScript">
+<script >
     var now = "login";
     var src = "./login.html";
     function change(login){
@@ -24,8 +23,8 @@
 </script>
 <head><title id = "title">login</title></head>
 <body>
-    <input type="button" value="註冊" id = "註冊" onclick = "change(0)">
-    <input type="button" value="登入" id = "登入" onclick = "change(1)" disabled><br><br>
+    <input type="button" value="註冊" id = "註冊" onClick = "change(0)">
+    <input type="button" value="登入" id = "登入" onClick = "change(1)" disabled><br><br>
     <iframe id = "iframe"
         src = "./login.html"
         height="200" 
