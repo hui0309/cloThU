@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
     include("session_init.php");
   if(!isset($_SESSION["user_id"])){
       header('Location: ./index.php');
@@ -10,18 +9,6 @@
     //if(isset($id))echo "存在";
     //else echo "not exist";
     //if(empty($id))echo "不存在";
-=======
-include('con_db.php');
-if (!isset($_SESSION["user_id"])) {
-    header('Location: ./index.php');
-    exit;
-}
-//echo $id;
-//echo "id".($_SESSION["user_id"]);
-//if(isset($id))echo "存在";
-//else echo "not exist";
-//if(empty($id))echo "不存在";
->>>>>>> 3224dd79a87218bfc3e06fb1ca7d19161f8e0f59
 
 /*$_SESSION["login"] = false;
 if($_SESSION["login"] == false){
