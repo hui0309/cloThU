@@ -108,11 +108,11 @@ exit;  //記得要跳出來，不然會重複轉址過多次
         </li> -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
-                                        href="index.php" role="button" aria-expanded="false"
+                                        href="#" role="button" aria-expanded="false"
                                         style="color: blueviolet">我的衣櫃</a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="index.php">單件</a></li>
-                                        <li><a class="dropdown-item" href="index.php">套裝</a></li>
+                                        <li><a class="dropdown-item" href="#">單件</a></li>
+                                        <li><a class="dropdown-item" href="#">套裝</a></li>
                                         <!-- <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="#">Separated link</a></li> -->
                                     </ul>

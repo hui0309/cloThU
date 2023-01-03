@@ -136,9 +136,9 @@ $cate_val = $category_arr[$cate_id];
 <body>
     <div class="container-fluid m-1">
         <header class="navbar navbar-expand-sm bd-navbar sticky-top " width="100%" style="background-color: white;">
-            <nav class="row navbar navbar-expand-sm navbar-light" style="background-color: white;">
-                <div class="container-fluid mt-3">
-                    <div class="row menu">
+            <nav class="row navbar navbar-expand-sm navbar-light d-flex align-items-start" style="background-color: white;">
+                <div class="container-fluid d-flex align-items-start">
+                    <div class="row menu ">
                         <div>
                             <ul class="nav nav-tabs">
                                 <!-- <li class="nav-item">
@@ -146,11 +146,11 @@ $cate_val = $category_arr[$cate_id];
         </li> -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
-                                        href="index.php" role="button" aria-expanded="false"
+                                        href="single.php" role="button" aria-expanded="false"
                                         style="color: blueviolet">我的衣櫃</a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="index.php">單件</a></li>
-                                        <li><a class="dropdown-item" href="index.php">套裝</a></li>
+                                        <li><a class="dropdown-item" href="single.php">單件</a></li>
+                                        <li><a class="dropdown-item" href="single.php">套裝</a></li>
                                         <!-- <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="#">Separated link</a></li> -->
                                     </ul>
