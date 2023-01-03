@@ -20,72 +20,53 @@
 <html>
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
       <title>single.html</title>
-      <style>
-        body {
-            margin: 0px;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            font-family: 微軟正黑體,新細明體,標楷體;
-            font-weight: bold;
-            font-size: 17px;
-        }
-        
-        .menu {
-            position:fixed;
-            width: 100%;
-            height: 40px;
-            background-color: dimgrey;
-            z-index: 9999999;
-        }
-        
-        .menu_css {
-            float: left;
-            width: 100%;
-            height: inherit;
-            overflow: hidden;
-            font-family: 微軟正黑體,新細明體,標楷體;
-            font-weight: bold;
-            font-size: 17px;
-            color: white;
-            border-spacing: 0px;
-        }
-        .menu_css tr {
-            display: block;
-        }
-        .menu_css td {
-            height: 40px;
-            padding: 0px 15px 0px 15px;
-            white-space: nowrap;
-        }
-        .menu_css td:hover {
-            background-color: black;
-        }
-        
-        .content {
-            position: relative;
-            word-wrap: break-word;
-            width: 100%;
-            top: 40px;
-        }
-        .secondtopbar{
-            width:25%;
-            position: relative;
-            /*word-wrap: break-word;
-            */top: 40px;
-        }
-        .button {
-           /*padding-left :30%;*/
-            border: none;
-            color: white;
-            width:100% ;
-            /*height: 20px;
-        */}
+      <style type="text/css">
+
+    body {
+        text-align: center;
+      }
+
+      .menu {
+        position: fixed;
+        width: 100%;
+        background-color: white;
+        top: 0px;
+      }
+      .gototop {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(237, 231, 207, 0.703);
+      }
+      .result {
+        top: 0px;
+      }
+      .count{
+        font-weight: bold;
+      }
+      .choosed_total{
+        font-weight: bold;
+      }
+      #cloth_name{
+        background-color: white;
+        font-weight: bold;
+      }
       </style>
-     
-    </head>
+    <link href="jquery-ui.css" rel="stylesheet" />
+    <script src="external/jquery/jquery.js"></script>
+    <script src="jquery-ui.js"></script>
     <script>
 
 function EditContent(){
@@ -102,73 +83,236 @@ function EditContent(){
 document.getElementById("mfrom").action = "toy_mdysave.php";
 }    
 </script>
+    <script>
+      $(document).ready(() => {
+        $("#gototop").click(function () {
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+      });
+    </script>
+        </head>
+
     <body>
-    
-    <div class="menu">
-        <table class="menu_css">
-            <tr>
-                <td>
-                    <a href="index.php"></a>我的衣櫃</a>
-                </td>
-                <td>
-                    <a href="./person.php">個人資訊</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="secondtopbar">
-         <table cellspaceing="0">
-            <tr>
-                <td> <div calss="button">
+    <div class="container-fluid mt-3 m-1 justify-content-center">
+      <header class="navbar navbar-expand-sm  bd-navbar sticky-top">
+        <nav class="row navbar navbar-expand-sm navbar-light bg-light">
+          <div class="container-fluid mt-3">
+            <div class="row menu">
+              <div>
+                <ul class="nav nav-tabs">
+                  <!-- <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Active</a>
+        </li> -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      data-bs-toggle="dropdown"
+                      href="index.php"
+                      role="button"
+                      aria-expanded="false"
+                      style="color: blueviolet"
+                      >我的衣櫃</a
+                    >
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="index.php">單件</a></li>
+                      <li><a class="dropdown-item" href="index.php">套裝</a></li>
+                      <!-- <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="person.php">個人資訊</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="row justify-content-sm-center">
+                <div class="col-2 col-sm-1"></div>
+                <div class="col-3 col-sm-4">
+                  <div class="row">
+                    <!-- 新增服裝 -->
                    
-        <!--        <input type="button"><input type="image" src="plus.png" heigt="20px" width="20px"></button>
-                    <input type="image"  id="saveform" src="plus.png " heigt="20px" width="20px" alt="Submit Form" />
-        -->      	<a href="single_add.html"> <input type="image" src="plus.png"   heigt=20% width=20%  onClick="document.formname.submit();"></a>
+                    <div class="col align-self-center">
+                        <a onClick="document.formname.submit();" href="single_add.html">
+                      <button class="align-items-center btn">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="36"
+                          height="36"
+                          fill="currentColor"
+                          class="bi bi-plus-circle"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                          />
+                          <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                          />
+                        </svg>
+                      </button>
+                      </a>
                     </div>
-                </td>
-                <td> <div calss="button">
-                      <input type="image" src="search.png" heigt=100% width=100% onClick="document.formname.submit();">
+                    <div class="col align-self-center">
+                      <button
+                        class="align-items-center btn"
+                        id="category"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".multi-collapse"
+                        aria-expanded="false"
+                        aria-controls="choose"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="36"
+                          height="36"
+                          fill="currentColor"
+                          class="bi bi-filter-circle"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                          />
+                          <path
+                            d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                </td>
-            </tr>
-        </table>
-        <form method="POST" action="single.php">
-        <table class="menu_search">
-            <tr>
-                <td >
-                    <form method="post" action="single.php">
-                    Search
-                    <input type="text" id="keyword" name="keyword" value="" placeholder="輸入搜尋衣服關鍵字" />
-                    <input type="submit" value="送出">				
-                    </form>
-                </td>
-            </tr>
-    </form>
-   
-    <form method="POST" action="single.php">
-   
-	<div style="min-width:20px;">category</div>
-		<input type="radio" name="category" value="top"> 上衣
-		<input type="radio" name="category" value="down"> 下著
-        <input type="radio" name="category" value="overall"> 連身衣
-        
-     <div style="min-width:20px;">style</div>
-    	<input type="radio" name="style" value="cute"> 可愛
-		<input type="radio" name="style" value="simple"> 簡約
-		<input type="radio" name="style" value="grace"> 優雅
-	
+                <div
+                  class="col-5 col-sm-6 align-items-center align-self-center"
+                >
+                  <form class="d-flex align-self-center" role="search" method="post" action="single.php">
+                    <input
+                      class="form-control me-2 align-items-center"
+                      type="search"
+                      placeholder="請輸入衣服關鍵字"
+                      aria-label="Search"
+                      id="keyword" name="keyword" value=""
+                    />
+                    <button class="btn btn-outline-success text-nowrap" type="submit">
+                      搜尋
+                    </button>
+                  </form>
+                </div>
+                <div class="col-2 col-sm-1"></div>
+              </div>
+              <div class="row collapse multi-collapse mt-2 mb-2" id="choose">
+                <div class="col-2 col-sm-1"></div>
+                
+                <div class="col-8 col-sm-10">
+                <form  method="post" action="single.php">
+                  <div
+                    class="row choose row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 m-2"
+                  >
+                    <div class="col-sm-2 d-flex justify-content-start">分類：</div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="top"
+                        id="上衣"
+                        name="category"
+                      />
+                      <label class="form-check-label text-nowrap" for="上衣">
+                        上衣
+                      </label>
+                    </div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="down"
+                        id="下著"
+                        name="category"
+                      />
+                      <label class="form-check-label text-nowrap" for="下著">
+                        下著
+                      </label>
+                    </div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="overall"
+                        id="連身衣"
+                        name="category"
+                      />
+                      <label class="form-check-label text-nowrap" for="連身衣">
+                        連身衣
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="row choose row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 m-2"
+                  >
+                    <div class="col-sm-2 d-flex justify-content-start">風格：</div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="cute"
+                        id="可愛"
+                        name="style"
+                      />
+                      <label class="form-check-label text-nowrap" for="可愛">
+                        可愛
+                      </label>
+                    </div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="simple"
+                        id="簡約"
+                        name="style"
+                      />
+                      <label class="form-check-label text-nowrap" for="簡約">
+                        簡約
+                      </label>
+                    </div>
+                    <div class="form-check col">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="grace"
+                        id="優雅"
+                        name="style"
+                      />
+                      <label class="form-check-label text-nowrap" for="優雅">
+                        優雅
+                      </label>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end align-self-end">
+                    <button
+                      type="submit"
+                      class="btn btn-outline-success justify-content-end"
+                    >
+                      查詢
+                    </button>
+                  </div>
+                  </form>
+                </div>
+                
+                <div class="col-2 col-sm-1"></div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="row g-10">
+        <div class="col"><br /><br /><br /></div>
+      </div>
 
-    <input type="submit" value="種類&風格查詢">				 
-    </form>
-
-
-
-    </div>
-    <div style="text-align: left;font-family: &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size: 15px;font-weight: bold;">        
-            <table>
-            <?php
+      <div
+        class="row align-items-center justify-content-center"
+      > 
+          <?php
                 if (isset($_POST["category"])||isset($_POST['style']))
-                {echo "已選<br>&nbsp;&nbsp;&nbsp;&nbsp;";
+                {echo "<div class='d-flex justify-content-start'><span class='choosed_total'>已選&nbsp;</span>";
                     $category_arr = array("top", "down", "overall");
                     $style_arr = array("cute", "simple", "grace");
                     //衣服種類的binary
@@ -212,7 +356,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                             $style_id-=1;
                         }
                     }
-                    echo "<br>總數量為: ";
+                    echo "</div><div class='col-sm-10 count d-flex justify-content-end'>總數量為: ";
                     if(isset($_POST["category"])&&isset($_POST['style']))//choose two 
                     {
                         $sql = "SELECT *
@@ -239,17 +383,33 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         $cloth_detail = $stmt->fetchAll();
                     }
                     echo count($cloth_detail);
+                    echo "</div>";
+                    ?>
+                    <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
+                    <?php
                     for( $count = 0; $count < count($cloth_detail); $count++){
                         ?>
-                            <tr>
-                                <th scope="row"><?php echo $count+1;?></th> 
-                                <form id="mfrom" method="post" action="single_info.php">
-                                <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
-                                <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
-                                <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
-                                <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>            
-                                </form>
-                            </tr><?php
+                           <div class="col d-flex justify-content-center mb-3">
+                <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
+                <form id="mfrom" method="post" action="single_info.php">
+                <input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/>
+                    
+                        <input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/>
+                        <img
+                            src="<?php echo $cloth_detail[$count]['cloth_img'];?>"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/>
+                            </h5>
+                        </div>
+                    
+                    </form>
+                    </div>
+                </div> 
+                <?php
                     }
                 }
 				elseif (isset($_POST["keyword"]))
@@ -266,7 +426,7 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                     FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
                     where (ts.user_id=? )and (t.cloth_name like  ?)";
 
-                ?>總數量為: 
+                ?></div><div class='col-sm-10 count d-flex justify-content-end'>總數量為: 
                 <?php  
                     if($stmt = $db->prepare($sql)){
 						//$stmt->execute(array($keyword,$keyword));
@@ -274,32 +434,49 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
                         $cloth_detail = $stmt->fetchAll();
                         echo count($cloth_detail);
 
-						//$stmt->execute(array($id));
+						//$stmt->execute(array($id));?>
+                        <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
+                        <?php
 						for( $count = 0; $count < count($cloth_detail); $count++){
 			        ?>
-						<tr>
-                            <th scope="row"><?php echo $count+1;?></th> 
-                            <form id="mfrom" method="post" action="single_info.php">
-                            <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
-                            <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
-                            <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
-                            <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>
-                            </form>
-                        </tr>
+                </div>
+                <div class="col d-flex justify-content-center mb-3">
+                <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
+                <form id="mfrom" method="post" action="single_info.php">
+                <input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/>
+                    
+                        <input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/>
+                        <img
+                            src="<?php echo $cloth_detail[$count]['cloth_img'];?>"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/>
+                            </h5>
+                        </div>
+                    
+                    </form>
+                    </div>
+                </div> 
 			<?php
 						}		
 					}
 				}else{?>
-                總數量為: 
+                </div><div class='col-sm-10 count d-flex justify-content-end'>總數量為: 
                   <?php  
 
 //aggregate
                 $sql = "SELECT COUNT(*) FROM cloth_number WHERE cloth_number.user_id=?";
 				$stmt =  $db->prepare($sql);
 				$error = $stmt->execute(array($id));
-				
-				if($rowcount = $stmt->fetchColumn())
-					echo ($rowcount);
+
+                  if ($rowcount = $stmt->fetchColumn()) {
+                      echo ($rowcount);
+                      echo ("</div>");
+                  }
+
 
                     $query = ("select cloth_id from cloth_number where user_id = ?");
                     $stmt =  $db -> prepare($query);
@@ -316,38 +493,65 @@ document.getElementById("mfrom").action = "toy_mdysave.php";
            
             $sql = "SELECT *
             FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
-            where (ts.user_id=? )";
+            where (ts.user_id=? )";?>
 
-
+        <div
+          class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center"
+        >
+        <?php
             for($my = 0, $count = 0; $my < count($mycloth_id)&&$count<count($cloth_detail); $count++)
             {
                if($mycloth_id[$my]['cloth_id']==$cloth_detail[$count]['cloth_id'])
                { // print($cloth_detail[$count]['cloth_name'] );
                ?>
-                  
-                <tr>
-                 <th scope="row"><?php echo $my+1;?></th> 
-                 <form id="mfrom" method="post" action="single_info.php">
-                 <td><input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/></td>
-                 <td><input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/></td>
-                 <td><input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/></td>
-                 <td><img src="<?php echo $cloth_detail[$count]['cloth_img'];?>"></td>
-               
-                 
-                 </form>
-               </tr>
 
+                <div class="col d-flex justify-content-center mb-3">
+                <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
+                <form id="mfrom" method="post" action="single_info.php">
+                <input type="hidden" id="cloth_id" name="cloth_id"  value="<?php echo $cloth_detail[$count]['cloth_id'] ;?>"/>
+                    
+                        <input type="hidden" id="cloth_img" name="cloth_img"  value="<?php echo $cloth_detail[$count]['cloth_img'] ;?>"/>
+                        <img
+                            src="<?php echo $cloth_detail[$count]['cloth_img'];?>"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <input type="submit" id="cloth_name" name="cloth_name" readonly style="border-style:none" value="<?php echo $cloth_detail[$count]['cloth_name'] ;?>"/>
+                            </h5>
+                        </div>
+                    
+                    </form>
+                    </div>
+                </div> 
                <?php     $my+=1;
 
                }
              }
             }?>
-        
 
-        </table>
-            
-				
-                        
+        <div>
+       
+        </div>
+      </div>
+    </div>
+    <div class="gototop rounded-circle">
+      <button class="align-items-center btn" id="gototop">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="36"
+          height="36"
+          fill="currentColor"
+          class="bi bi-arrow-up-circle"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+          />
+        </svg>
+      </button>
     </div>
     </body>
 </html>
