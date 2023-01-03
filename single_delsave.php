@@ -1,5 +1,9 @@
 <?php
 	include("con_db.php");
+    if(!isset($_SESSION["user_id"])){
+        header('Location: ./index.php');
+        exit;
+    }
 	echo $_POST["cloth_id"];
 	if (isset($_POST["cloth_id"]) && !empty($_POST["cloth_id"]))
 	{

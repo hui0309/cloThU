@@ -1,6 +1,6 @@
 <?php
   include('con_db.php');
-  if(!isset($_SESSION['login'])){
+  if(!isset($_SESSION["user_id"])){
       header('Location: ./index.php');
       exit;
   }

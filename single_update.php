@@ -1,11 +1,10 @@
 <?php
     include("con_db.php");
-    session_start();//include這個才能用session
-    //$user_id=$_SESSION["user_id"];
-	//echo $_SESSION["user_id"];
-//	echo $_POST['cloth_id'];
-	$cloth_id=$_POST["cloth_id"];
-	
+    if(!isset($_SESSION["user_id"])){
+        header('Location: ./index.php');
+        exit;
+    }
+    $cloth_id=$_POST["cloth_id"];
     $query = ("select * from cloth_detail t left join store ts on (t.store_id=ts.store_id) where cloth_id=?");
     $stmt =  $db -> prepare($query);
     $error= $stmt -> execute(array($cloth_id));

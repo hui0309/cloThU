@@ -1,6 +1,9 @@
 <?php
 	include("con_db.php");
-	session_start();
+    if(!isset($_SESSION["user_id"])){
+        header('Location: ./index.php');
+        exit;
+    }
 //	echo $_SESSION["user_id"];
 /*
 	create table cloth_detail( 

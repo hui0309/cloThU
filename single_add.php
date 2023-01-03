@@ -1,7 +1,9 @@
 <?php
 	include("con_db.php");
-	session_start();
-	echo $_SESSION["user_id"];
+    if(!isset($_SESSION["user_id"])){
+        header('Location: ./index.php');
+        exit;
+    }
 /*
 	create table cloth_detail( 
 	cloth_ID 		bigint(15) not null, 
@@ -158,15 +160,12 @@ echo count($result);
 	foreign key (cloth_ID) references cloth_detail
 	);
 	*/
-//$user_id=$_SESSION["user_id"];
-//echo $user_id;
-	$user_id="00957117";
 
 	//cloth_unmber
 	$query=("insert into cloth_number values(?,?)");
 	$stmt=$db->prepare($query);
 	//執行SQL語法
-	$result=$stmt->execute(array($user_id,$cloth_id));
+	$result=$stmt->execute(array($id,$cloth_id));
 //function_alert("帳號或密碼錯誤"); 
 header("location:single.php");
 
