@@ -51,7 +51,8 @@
 <script>
     window.onload = function(){
         <?php
-            $query = ("select * from user where user_id = ?");
+		//use view user_file
+            $query = ("select * from user_file where user_id = ?");
             $stmt =  $db -> prepare($query);
             $error= $stmt -> execute(array($id));
             $result = $stmt -> fetchAll();

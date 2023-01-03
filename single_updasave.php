@@ -143,7 +143,7 @@ if($stmt = $db->prepare($sql)){
 
 
 	
-header("location:single.php");
+// header("location:single.php");
 
 ?>
 

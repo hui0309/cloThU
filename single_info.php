@@ -29,7 +29,6 @@ while ($cate > 1) {
     $cate_id += 1;
 }
 $cate_val = $category_arr[$cate_id];
-
 ?>
 
 
@@ -68,26 +67,67 @@ $cate_val = $category_arr[$cate_id];
         }
 
 
-        function UpdateContent() {
-            //name style category store info
-            document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
-            document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
-            document.getElementById("cloth_img").value = document.getElementById("cloth_img").value;
-            //		document.getElementByName("style").value = document.getElementById("style").value;
-            //		document.getElementByName("category").value = document.getElementById("category").value;
-            document.getElementById("store").value = document.getElementById("store").value;
-            document.getElementById("text_info").value = document.getElementById("text_info").value;
-            //window.location = "single_updasave.php";
-            document.getElementById("mfrom").action = "single_updasave.php";
-            document.getElementById("mfrom").submit();
+        // function UpdateContent() {
+        //     //name style category store info
+        //     document.getElementById("cloth_id").value = document.getElementById("cloth_id").value;
+        //     document.getElementById("cloth_name").value = document.getElementById("cloth_name").value;
+        //     document.getElementById("cloth_img").value = document.getElementById("cloth_img").value;
+        //     //		document.getElementByName("style").value = document.getElementById("style").value;
+        //     //		document.getElementByName("category").value = document.getElementById("category").value;
+        //     document.getElementById("store").value = document.getElementById("store").value;
+        //     document.getElementById("text_info").value = document.getElementById("text_info").value;
+        //     //window.location = "single_updasave.php";
+        //     document.getElementById("mfrom").action = "single_updasave.php";
+        //     document.getElementById("mfrom").submit();
 
-        }
+        // }
     </script>
     <script>
         $(document).ready(() => {
             $("#cloth_img").bind("change paste keyup", function () {
                 $('#showimg').attr("src", $("#cloth_img").val());
             });
+            let sty_val;
+            let cat_val;
+            $("#updateBtn").click(function () {
+                if ($("#上衣").is(":checked")) {
+                    cat_val = "top";
+                }
+                else if ($("#下著").is(":checked")) {
+                    cat_val ="down";
+                }
+                else if ($("#連身裙").is(":checked")) {
+                    cat_val ="overall";
+                }
+                if ($("#可愛").is(":checked")) {
+                    sty_val = "cute";
+                }
+                else if ($("#簡約").is(":checked")) {
+                    sty_val ="simple";
+                }
+                else if ($("#優雅").is(":checked")) {
+                    sty_val ="grace";
+                }
+                console.log(sty_val);
+                $.ajax({
+                    url: "single_updasave.php",
+                    type: "POST",
+                    data: "cloth_id=" + $('#cloth_id').val() +
+                        "&cloth_name=" + $('#cloth_name').val() +
+                        "&cloth_img=" + $('#cloth_img').val() +
+                        "&style=" + sty_val +
+                        "&category=" + cat_val +
+                        "&store=" + $('#store').val() +
+                        "&text_info=" + $('#text_info').val(),
+                    // 若成功，執行以下...
+                    success: function (response) {
+                        console.log('yes');
+                    },
+                    error: function () {
+                        console.log('read 失敗');
+                    }
+                });
+            })
         });
 
     </script>
@@ -347,17 +387,21 @@ $cate_val = $category_arr[$cate_id];
                             </div>
                             <div class="row d-flex align-items-center mb-2">
                                 <div class="col-6 d-flex align-items-center align-self-center justify-content-center">
-                                    <button class="btn btn-outline-success text-nowrap" type="submit"
-                                        onclick="UpdateContent()">
+                                    <!-- <button class="btn btn-outline-success text-nowrap" type="submit"
+                                        onclick="UpdateContent()"
+                                        >
+                                        更新
+                                    </button> -->
+                                    <button class="btn btn-outline-success text-nowrap" id="updateBtn">
                                         更新
                                     </button>
                                 </div>
                                 <div class="col-6 d-flex align-items-center align-self-center justify-content-center">
                                     <div class=" d-flex align-items-center ">
-                                    <button class="btn btn-outline-danger text-nowrap " type="submit"
-                                        onclick="DeleteContent()">
-                                        刪除
-                                    </button>
+                                        <button class="btn btn-outline-danger text-nowrap " type="submit"
+                                            onclick="DeleteContent()">
+                                            刪除
+                                        </button>
                                     </div>
                                 </div>
                             </div>

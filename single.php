@@ -347,20 +347,27 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                 } else {
                     $keyword = '%' . $keyword . '%';
                 }
-
-                $sql = "SELECT *
-                    FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
-                    where (ts.user_id=? )and (t.cloth_name like  ?)";
-
                 ?>
                 </div>
                 <div class='col-sm-10 count d-flex justify-content-end'>總數量為:
                     <?php
+        //agg
+                     $sql = "SELECT count(*)
+                     FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
+                     where (ts.user_id=? )and (t.cloth_name like  ?)";
+                     $stmt = $db->prepare($sql);
+                    $error = $stmt->execute(array($id,$keyword));
+                    $rowcount = $stmt->fetchColumn();
+                        echo ($rowcount);
+
+                    $sql = "SELECT  *
+                    FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
+                    where (ts.user_id=? )and (t.cloth_name like  ?)";
                     if ($stmt = $db->prepare($sql)) {
                         //$stmt->execute(array($keyword,$keyword));
                         $stmt->execute(array($id, $keyword));
                         $cloth_detail = $stmt->fetchAll();
-                        echo count($cloth_detail);
+                       // echo count($cloth_detail);
 
                         //$stmt->execute(array($id));?>
                         <div
@@ -398,26 +405,17 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                 <div class='col-sm-10 count d-flex justify-content-end'>總數量為:
                     <?php
 
-                    //aggregate
-                    $sql = "SELECT COUNT(*) FROM cloth_number WHERE cloth_number.user_id=?";
-                    $stmt = $db->prepare($sql);
-                    $error = $stmt->execute(array($id));
+//function
+                      $sql = ("select countcloth(?) ");
+                      $stmt = $db->prepare($sql);
+                      $error = $stmt->execute(array($id));
+  
+                      if ($rowcount = $stmt->fetchColumn()) {
+                          echo ($rowcount);
+                          echo ("</div>");
+                      }
 
-                    if ($rowcount = $stmt->fetchColumn()) {
-                        echo ($rowcount);
-                        echo ("</div>");
-                    }
-
-
-                    $query = ("select cloth_id from cloth_number where user_id = ?");
-                    $stmt = $db->prepare($query);
-                    $error = $stmt->execute(array($id));
-                    // $result = $stmt -> fetchAll();
-                    $mycloth_id = $stmt->fetchAll();
-                    sort($mycloth_id);
-                    // echo count($mycloth_id);
-                
-                    //subquery
+//subquery
                     $sql = "SELECT *
            FROM cloth_detail 
            where cloth_id IN (select cloth_id from cloth_number where cloth_number.user_id=?)";

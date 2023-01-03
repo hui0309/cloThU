@@ -108,7 +108,7 @@ O	store_ID 		bigint(15)
 		}
 	}
 	else
-		$store=NULL;
+		$store_id=NULL;
 #img
 if (isset($_POST["img"])&&!empty($_POST["img"]))
 {
@@ -116,7 +116,7 @@ if (isset($_POST["img"])&&!empty($_POST["img"]))
 	$img = $_POST["img"];
 }
 else
-	$img=NULL;
+	$img="https://caree-pro.com/wp/wp-content/themes/careepro/images/no-image.png";
 
 	$query = ("select * from cloth_number ");
 	$stmt =  $db -> prepare($query);

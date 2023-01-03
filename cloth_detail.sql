@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-01-03 15:41:16
+-- 產生時間： 2023-01-03 18:50:21
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -45,7 +45,8 @@ INSERT INTO `cloth_detail` (`cloth_id`, `cloth_name`, `cloth_style`, `cloth_img`
 (1, 'sss', NULL, NULL, NULL, NULL, 3),
 (2, 'sssssssss', NULL, NULL, NULL, NULL, 1),
 (3, 'eeee', NULL, NULL, NULL, NULL, 2),
-(4, 'sddsds', NULL, 'https://i.imgur.com/7y2qKdn.jpg', 4, NULL, NULL);
+(4, 'sddsds', NULL, 'https://i.imgur.com/7y2qKdn.jpg', 4, NULL, NULL),
+(5, 'lkjfds', NULL, NULL, NULL, '                                    ', NULL);
 
 --
 -- 已傾印資料表的索引
