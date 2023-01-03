@@ -108,7 +108,7 @@ O	store_ID 		bigint(15)
 		}
 	}
 	else
-		$store=NULL;
+		$store_id=NULL;
 #img
 if (isset($_POST["img"])&&!empty($_POST["img"]))
 {
