@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-01-02 20:46:54
+-- 產生時間： 2023-01-03 15:41:21
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -63,6 +63,17 @@ DELIMITER ;
 ALTER TABLE `cloth_number`
   ADD PRIMARY KEY (`user_id`,`cloth_id`),
   ADD KEY `cloth_idfk` (`cloth_id`);
+
+--
+-- 已傾印資料表的限制式
+--
+
+--
+-- 資料表的限制式 `cloth_number`
+--
+ALTER TABLE `cloth_number`
+  ADD CONSTRAINT `cloth_idfk` FOREIGN KEY (`cloth_id`) REFERENCES `cloth_detail` (`cloth_id`),
+  ADD CONSTRAINT `user_idfk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

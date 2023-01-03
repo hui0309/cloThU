@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023-01-02 20:47:02
+-- 產生時間： 2023-01-03 15:41:16
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -55,7 +55,18 @@ INSERT INTO `cloth_detail` (`cloth_id`, `cloth_name`, `cloth_style`, `cloth_img`
 -- 資料表索引 `cloth_detail`
 --
 ALTER TABLE `cloth_detail`
-  ADD PRIMARY KEY (`cloth_id`);
+  ADD PRIMARY KEY (`cloth_id`),
+  ADD KEY `store_idFK` (`store_id`);
+
+--
+-- 已傾印資料表的限制式
+--
+
+--
+-- 資料表的限制式 `cloth_detail`
+--
+ALTER TABLE `cloth_detail`
+  ADD CONSTRAINT `store_idFK` FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
