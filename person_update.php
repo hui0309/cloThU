@@ -49,24 +49,15 @@
                         }
                     }
                 }
-                function change(){
-                    var url = document.getElementById("img_file").file;
-                    user_img = getObjectURL(file);
-                    document.getElementById("user_img").src = user_img;
-                }
-                function toback(){
-                    var check = window.confirm('放棄修改並離開?');
-                    if (check == true) {
-                        window.location.href='./person.php';   
-                    }
-                }    
             </script>
             <form name="update" method="post" action="./people_update.php" onsubmit="return validateForm()">
 			<table class="table">
 			  <tbody>
                     <tr class = 'img'>
 					    <td><input type="image" id="user_img" name = "user_img"/></td>
-					    <td><input type="file" id="img_file" accept="image/gif, image/jpeg, image/png" onchange = "change()" value = '上傳檔案'/></td> 
+                        <input type="hidden" name="img_location" id="img_location"/>
+					    <td><input type="file" id="img_file" accept="image/gif, image/jpeg, image/png" value = '上傳檔案'/></td> 
+					    <td><input type="button" id="img_clear" value = '還原預設'/></td> 
                     </tr>
                     <tr>
                         <th scope="row">id(readonly)</th>
@@ -113,7 +104,61 @@
         var user_img = "<?php echo $img; ?>";
         if(!user_img) user_img = "./userimg_normal.png";
         document.getElementById("user_img").src = user_img;
+        document.getElementById("img_location").value = user_img;
     }
+    function save_data(blob, fileName){
+          const a = document.createElement('a');
+            document.body.appendChild(a);
+            a.style = 'display: none';
+            // 將 blob 放到 URL 上
+            url = window.URL.createObjectURL(blob);
+            alert(url);
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            // 釋放記憶體
+            a.href = '';
+            window.URL.revokeObjectURL(url);
+    }
+    function resize(image) {
+        let canvas = document.createElement('canvas');
+        // 畫布大小為圖片的 0.9 倍
+        canvas.width = image.width * 0.9;
+        canvas.height = image.height * 0.9;
+        let ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 把圖片畫在畫布上(0,0)作標到(canvas.width,canvas.height)
+        let newImg = canvas.toDataURL(imageType, 0.8); // 0.8是圖片壓縮比
+        return newImg;
+    }
+    var img_file = document.getElementById('img_file');
+    img_file.onchange = function(e){
+        var file = e.target.files[0];
+        var name = e.target.files[0].name;
+        //save_data(file,name)
+        var form = new FormData();
+        //form.append("product[photos][]", e.target.files[0], optional<time+name>);
+        var reader  = new FileReader();
+        reader.addEventListener("load", function () {
+            document.getElementById("user_img").src = reader.result;
+            document.getElementById("img_location").value = reader.result;
+        }, false);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    var img_clear = document.getElementById('img_clear');
+    img_clear.onclick = function(){
+        document.getElementById('img_file').value = "";
+        document.getElementById("user_img").src = "./userimg_normal.png";
+        document.getElementById("img_location").value = "./userimg_normal.png";
+    }
+    function toback(){
+        var check = window.confirm('放棄修改並離開?');
+        if (check == true) {
+            window.location.href='./person.php';   
+        }
+    }    
+
 </script>
 <style>
 	body {

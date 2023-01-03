@@ -57,6 +57,7 @@
             $result = $stmt -> fetchAll();
             $name = $result[0]["user_name"];
             $mail = $result[0]["user_mail"];
+            $img = $result[0]["user_img"];
             $query = ("select * from cloth_number where user_id = ?");
             $stmt =  $db -> prepare($query);
             $error= $stmt -> execute(array($id));
@@ -71,7 +72,8 @@
         document.getElementById("user_mail").value = user_mail;
         var cloth_cnt = "<?php echo $cnt; ?>";
         document.getElementById("cnt").value = cloth_cnt;
-        var user_img = "./userimg_normal.png";
+        var user_img = "<?php echo $img; ?>";
+        if(!user_img) user_img = "./userimg_normal.png"; 
         document.getElementById("img").src = user_img;
     }
 </script>

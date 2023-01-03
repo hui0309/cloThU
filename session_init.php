@@ -74,6 +74,7 @@
         }
         else if($target == '登出'){
             session_destroy();
+            setcookie ( "name", "", time () - 100 );
             echo '<script>';
             echo 'parent.location.reload();';
             echo '</script>';

@@ -16,13 +16,20 @@
                 else $user_pass = password_hash($_POST["user_cur_pass"], PASSWORD_DEFAULT);
                 //$user_img = $_POST["user_img"];
                 $user_name = $_POST["user_name"];
-                $query = ("update user set user_pass=?,user_name=? where user_id=?");
-                $stmt = $db->prepare($query);
-                $result=$stmt->execute(array($user_pass,$user_name,$user_id));
-                echo '<script language="javascript">';
-                echo 'window.location.reload();';
-                echo '</script>';
-                exit;
+                $user_img = $_POST["img_location"];
+                if(strlen($user_img)>10240){
+                    alert("圖片過大",'./person_update.php'); 
+                    exit;
+                }
+                else{
+                    $query = ("update user set user_pass=?,user_name=?,user_img=? where user_id=?");
+                    $stmt = $db->prepare($query);
+                    $result=$stmt->execute(array($user_pass,$user_name,$user_img,$user_id));
+                    echo '<script>';
+                    echo "window.location = './person.php';";
+                    echo '</script>';
+                    exit;
+                }
             }
             else{     
                 alert("密碼輸入錯誤",'./person_update.php'); 
