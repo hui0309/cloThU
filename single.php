@@ -31,12 +31,14 @@ exit;  //記得要跳出來，不然會重複轉址過多次
         body {
             text-align: center;
         }
+
         a {
-			text-decoration: none;
-			font-family: 微軟正黑體, 新細明體, 標楷體;
-			font-weight: bold;
-			font-size: 17px;
-		}
+            text-decoration: none;
+            font-family: 微軟正黑體, 新細明體, 標楷體;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
         .menu {
             position: fixed;
             width: 100%;
@@ -66,6 +68,54 @@ exit;  //記得要跳出來，不然會重複轉址過多次
         #cloth_name {
             background-color: white;
             font-weight: bold;
+        }
+
+        .carousel-item {
+            height: 500px;
+        }
+
+        .carousel-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+        .imgbtn {
+            background-color: white;
+            border: 0ex;
+            margin: 0ex;
+            padding: 0ex;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: rgba(100, 100, 100, 0.9);
+            z-index: 10;
+        }
+
+        .imgbtn:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay_text {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
     </style>
     <link href="jquery-ui.css" rel="stylesheet" />
@@ -112,9 +162,8 @@ exit;  //記得要跳出來，不然會重複轉址過多次
         <a class="nav-link active" aria-current="page" href="#">Active</a>
         </li> -->
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
-                                        href="#" role="button" aria-expanded="false"
-                                        style="color: blueviolet">我的衣櫃</a>
+                                    <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#"
+                                        role="button" aria-expanded="false" style="color: blueviolet">我的衣櫃</a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">單件</a></li>
                                         <li><a class="dropdown-item" href="#">套裝</a></li>
@@ -163,7 +212,8 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                 </div>
                             </div>
                             <div class="col-5 col-sm-6 align-items-center align-self-center">
-                                <form class="d-flex align-self-center" role="search" method="post" action="single.php">
+                                <form class="d-flex align-items-center align-self-center" role="search" method="post"
+                                    action="single.php">
                                     <input class="form-control me-2 align-items-center" type="search"
                                         placeholder="請輸入衣服關鍵字" aria-label="Search" id="keyword" name="keyword"
                                         value="" />
@@ -245,7 +295,40 @@ exit;  //記得要跳出來，不然會重複轉址過多次
             <div class="col"><br /><br><br /><br /></div>
         </div>
 
-        <div class="row align-items-center justify-content-center">
+        <div class="d-flex row align-items-center justify-content-center">
+            <div id="carouselExampleAutoplaying" class="carousel slide col-8" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://s.yimg.com/zp/MerchandiseImages/4FFE2CFC02-SP-11107490.jpg"
+                            class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://s.yimg.com/zp/MerchandiseImages/14FDFAF461-SP-10891758.jpg"
+                            class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://s.yimg.com/zp/MerchandiseImages/F4D006AB2F-SP-10896948.jpg"
+                            class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-10">
+            <div class="col"><br /><br /></div>
+        </div>
+
+        <div class="d-flex row align-items-center justify-content-center">
             <?php
             if (isset($_POST["category"]) || isset($_POST['style'])) {
                 echo "<div class='d-flex justify-content-start'><span class='choosed_total'>已選&nbsp;</span>";
@@ -324,21 +407,25 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                         <div class="col d-flex justify-content-center mb-3">
                             <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
                                 <form id="mfrom" method="post" action="single_info.php">
-                                    <input type="hidden" id="cloth_id" name="cloth_id"
-                                        value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
+                                    <button type="submit" class="imgbtn">
+                                        <input type="hidden" id="cloth_id" name="cloth_id"
+                                            value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
 
-                                    <input type="hidden" id="cloth_img" name="cloth_img"
-                                        value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
-                                    <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
-                                        alt="..." />
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <input type="submit" id="cloth_name" name="cloth_name" readonly
-                                                style="border-style:none"
-                                                value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
-                                        </h5>
-                                    </div>
-
+                                        <input type="hidden" id="cloth_img" name="cloth_img"
+                                            value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
+                                        <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
+                                            alt="..." />
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <input type="submit" id="cloth_name" name="cloth_name" readonly
+                                                    style="border-style:none"
+                                                    value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
+                                            </h5>
+                                        </div>
+                                        <div class="overlay">
+                                            <div class="overlay_text">View Detail</div>
+                                        </div>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -356,14 +443,14 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                 </div>
                 <div class='col-sm-10 count d-flex justify-content-end'>總數量為:
                     <?php
-        //agg
-                     $sql = "SELECT count(*)
+                    //agg
+                    $sql = "SELECT count(*)
                      FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
                      where (ts.user_id=? )and (t.cloth_name like  ?)";
-                     $stmt = $db->prepare($sql);
-                    $error = $stmt->execute(array($id,$keyword));
+                    $stmt = $db->prepare($sql);
+                    $error = $stmt->execute(array($id, $keyword));
                     $rowcount = $stmt->fetchColumn();
-                        echo ($rowcount);
+                    echo ($rowcount);
 
                     $sql = "SELECT  *
                     FROM cloth_detail t left join cloth_number ts on (t.cloth_id = ts.cloth_id) 
@@ -372,55 +459,59 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                         //$stmt->execute(array($keyword,$keyword));
                         $stmt->execute(array($id, $keyword));
                         $cloth_detail = $stmt->fetchAll();
-                       // echo count($cloth_detail);
-
+                        // echo count($cloth_detail);
+                
                         //$stmt->execute(array($id));?>
-                        <div
-                            class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
-                            <?php
-                            for ($count = 0; $count < count($cloth_detail); $count++) {
-                                ?>
-                            </div>
+                    </div>
+                    <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-10 justify-self-center">
+                        <?php
+                        for ($count = 0; $count < count($cloth_detail); $count++) {
+                            ?>
+
                             <div class="col d-flex justify-content-center mb-3">
                                 <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
                                     <form id="mfrom" method="post" action="single_info.php">
-                                        <input type="hidden" id="cloth_id" name="cloth_id"
-                                            value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
+                                        <button type="submit" class="imgbtn">
+                                            <input type="hidden" id="cloth_id" name="cloth_id"
+                                                value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
 
-                                        <input type="hidden" id="cloth_img" name="cloth_img"
-                                            value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
-                                        <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
-                                            alt="..." />
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <input type="submit" id="cloth_name" name="cloth_name" readonly
-                                                    style="border-style:none"
-                                                    value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
-                                            </h5>
-                                        </div>
-
+                                            <input type="hidden" id="cloth_img" name="cloth_img"
+                                                value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
+                                            <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
+                                                alt="..." />
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <input type="submit" id="cloth_name" name="cloth_name" readonly
+                                                        style="border-style:none"
+                                                        value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
+                                                </h5>
+                                            </div>
+                                            <div class="overlay">
+                                                <div class="overlay_text">View Detail</div>
+                                            </div>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                             <?php
-                            }
+                        }
                     }
             } else { ?>
                 </div>
                 <div class='col-sm-10 count d-flex justify-content-end'>總數量為:
                     <?php
 
-//function
-                      $sql = ("select countcloth(?) ");
-                      $stmt = $db->prepare($sql);
-                      $error = $stmt->execute(array($id));
-  
-                      if ($rowcount = $stmt->fetchColumn()) {
-                          echo ($rowcount);
-                          echo ("</div>");
-                      }
+                    //function
+                    $sql = ("select countcloth(?) ");
+                    $stmt = $db->prepare($sql);
+                    $error = $stmt->execute(array($id));
 
-//subquery
+                    if ($rowcount = $stmt->fetchColumn()) {
+                        echo ($rowcount);
+                        echo ("</div>");
+                    }
+
+                    //subquery
                     $sql = "SELECT *
            FROM cloth_detail 
            where cloth_id IN (select cloth_id from cloth_number where cloth_number.user_id=?)";
@@ -439,21 +530,26 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                             <div class="col d-flex justify-content-center mb-3">
                                 <div class="card h-100" style="max-width: 18rem ;max-height: 18rem">
                                     <form id="mfrom" method="post" action="single_info.php">
-                                        <input type="hidden" id="cloth_id" name="cloth_id"
-                                            value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
+                                        <button type="submit" class="imgbtn">
+                                            <input type="hidden" id="cloth_id" name="cloth_id"
+                                                value="<?php echo $cloth_detail[$count]['cloth_id']; ?>" />
 
-                                        <input type="hidden" id="cloth_img" name="cloth_img"
-                                            value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
-                                        <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
-                                            alt="..." />
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <input type="submit" id="cloth_name" name="cloth_name" readonly
-                                                    style="border-style:none"
-                                                    value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
-                                            </h5>
-                                        </div>
+                                            <input type="hidden" id="cloth_img" name="cloth_img"
+                                                value="<?php echo $cloth_detail[$count]['cloth_img']; ?>" />
 
+                                            <img src="<?php echo $cloth_detail[$count]['cloth_img']; ?>" class="card-img-top"
+                                                alt="..." />
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <input type="submit" id="cloth_name" name="cloth_name" readonly
+                                                        style="border-style:none"
+                                                        value="<?php echo $cloth_detail[$count]['cloth_name']; ?>" />
+                                                </h5>
+                                            </div>
+                                            <div class="overlay">
+                                                <div class="overlay_text">View Detail</div>
+                                            </div>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -481,7 +577,8 @@ exit;  //記得要跳出來，不然會重複轉址過多次
 
                                 <form id="mfrom" method="post" action="single_add.php">
                                     <div class="row d-flex align-items-center mb-2">
-                                        <img id="showimg" src="https://caree-pro.com/wp/wp-content/themes/careepro/images/no-image.png">
+                                        <img id="showimg"
+                                            src="https://caree-pro.com/wp/wp-content/themes/careepro/images/no-image.png">
                                     </div>
                                     <div class="row d-flex align-items-center mb-2">
                                         <div class="col-sm-3 col-4 ">
@@ -489,7 +586,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                         </div>
                                         <div class="col-sm-9 col-8">
                                             <input class="form-control me-2 align-items-center" type="text"
-                                                placeholder="請輸入圖片連結" aria-label="Search" id="img" name="img"/>
+                                                placeholder="請輸入圖片連結" aria-label="Search" id="img" name="img" />
                                         </div>
                                     </div>
                                     <div class="row d-flex align-items-center mb-2">
