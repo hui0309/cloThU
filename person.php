@@ -1,5 +1,5 @@
 <?php
-    include('con_db.php');
+    include("session_init.php");
     if(!isset($_SESSION['user_id'])){
         header('Location: ./index.php');
         exit;
@@ -22,8 +22,8 @@
 	<div class="content">
 		<div class="inner_content">
             <div class = "left">
-                <iframe id = "iframe" src = "./person.html">
-                </iframe>
+                <input type="image" id="img" name = "img" readonly/>
+                <iframe id = "iframe" src = "./person.html" width = "250" height = "50"></iframe>
             </div>
 			<table class="table">
 			  <tbody>
@@ -68,9 +68,11 @@
         var user_id = "<?php echo $id; ?>";
         document.getElementById("user_id").value = user_id;
         var user_mail = "<?php echo $mail; ?>";
-        document.getElementById("user_mail").mail = user_mail;
+        document.getElementById("user_mail").value = user_mail;
         var cloth_cnt = "<?php echo $cnt; ?>";
-        document.getElementById("cnt").cnt = cloth_cnt;
+        document.getElementById("cnt").value = cloth_cnt;
+        var user_img = "./userimg_normal.png";
+        document.getElementById("img").src = user_img;
     }
 </script>
 <style>
@@ -129,12 +131,12 @@
 	.inner_content {
 		padding: 50px 130px 220px 130px;
         background-color: white;
-        flex-direction: column; 
+        flex-direction: row; 
 	}
-    .inner_content left{
+    .inner_content:left{
 		position: relative;
 		width: 40%;
-        flex-direction: row; 
+        flex-direction: column;
     }
     .inner_content table{
         position: relative;

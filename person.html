@@ -1,11 +1,10 @@
-<html>
-    <body>
-        <div class ="img"></div>
+<html class = 'contain'>
+    <body >
         <div class = "but">
-            <form method="post" action="con_db.php">
+            <form method="post" action="session_init.php">
                 <input type = "submit" id = "target" name = "target" value = "登出"/>
+                <input type = "button" id = "edit" value = "編輯"/>
             </form>
-            <input type = "button" id = "edit" value = "編輯"/>
         </div>
     </body>
     <script>
@@ -16,6 +15,10 @@
         }
     </script>
     <style>
+    .contain {
+        width: 220;
+        height: 20;
+    }
     .img{
 		position: relative;
         height: 70%;

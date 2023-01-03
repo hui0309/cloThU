@@ -1,6 +1,6 @@
 <?php
     // Check if the user is already logged in, if yes then redirect him to welcome page
-    include("con_db.php");
+    include("session_init.php");
     // Processing form data when form is submitted
     if(isset($_SESSION["user_id"])){
         header('Location: ./person.php');
