@@ -4,11 +4,11 @@
       header('Location: ./index.php');
       exit;
   }
-    //echo $id;
-    //echo "id".($_SESSION["user_id"]);
-    //if(isset($id))echo "存在";
-    //else echo "not exist";
-    //if(empty($id))echo "不存在";
+//echo $id;
+//echo "id".($_SESSION["user_id"]);
+//if(isset($id))echo "存在";
+//else echo "not exist";
+//if(empty($id))echo "不存在";
 
 /*$_SESSION["login"] = false;
 if($_SESSION["login"] == false){
@@ -128,7 +128,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                     <div class="col align-self-center">
                                         <!--<a onClick="document.formname.submit();" href="single_add.html"> -->
                                         <button type="button" class="align-items-center btn" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
+                                            data-bs-target="#newModal">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
                                                 fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                                 <path
@@ -234,7 +234,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
             </nav>
         </header>
         <div class="row g-10">
-            <div class="col"><br /><br /><br /></div>
+            <div class="col"><br /><br><br /><br /></div>
         </div>
 
         <div class="row align-items-center justify-content-center">
@@ -464,12 +464,12 @@ exit;  //記得要跳出來，不然會重複轉址過多次
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">新增服裝</h5>
+                                <h5 class="modal-title" id="newModalLabel">新增服裝</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -556,14 +556,13 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                                             商店
                                         </div>
                                         <div class="col-sm-9 col-8">
-                                            <input class="form-control me-2 align-items-center" type="text"  
-                                                placeholder="請輸入購買衣服的商店" aria-label="Search"
-                                                name="store"/>
+                                            <input class="form-control me-2 align-items-center" type="text"
+                                                placeholder="請輸入購買衣服的商店" aria-label="Search" name="store" />
                                         </div>
                                     </div>
                                     <div class="row d-flex align-items-center mb-2">
                                         <div class="col-sm-3 col-4">
-                                            info
+                                            Info
                                         </div>
                                         <div class="col-sm-9 col-8  d-flex align-items-start">
                                             <textarea name="text_info" rows="5" cols="30" placeholder="請輸入衣服簡介(選填)..">
@@ -589,6 +588,7 @@ exit;  //記得要跳出來，不然會重複轉址過多次
                 </svg>
             </button>
         </div>
+    </div>
 </body>
 
 </html>
