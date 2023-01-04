@@ -53,6 +53,12 @@ $cate_val = $category_arr[$cate_id];
             font-weight: bold;
             font-size: 17px;
         }
+        .infoCard{
+            margin: 10px;
+            border-radius: 3%;
+            background-color: rgba(237, 231, 207, 0.703);
+            padding:2px;
+        }
 
         @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
@@ -321,8 +327,8 @@ $cate_val = $category_arr[$cate_id];
             <div class="col-6 col-sm-6 col-md-5">
                 <img src="<?php echo $cloth_detail[0]['cloth_img']; ?>" class="img-fluid">
             </div>
-            <div class="row col-6 col-sm-4 col-md-3 d-flex align-items-center justify-content-between">
-                <div class=" d-flex align-self-start justify-content-center">
+            <div class="row col-6 col-sm-4 col-md-3 d-flex align-items-center justify-content-between infoCard">
+                <div class=" d-flex align-self-center justify-content-center align-items-center">
                     <h1><strong>
                             <?php echo $cloth_detail[0]['cloth_name']; ?>
                         </strong></h1>
@@ -370,12 +376,12 @@ $cate_val = $category_arr[$cate_id];
                         </div>
                     </div>
                 </div>
-                <div class="row  d-flex align-items-center m-1 " style="z-index: 1000;">
+                <div class="row  d-flex align-items-center justify-content-center m-1 " style="z-index: 1000;">
                     <div class="row ">
-                        <div class="col-6 col-sm-6 d-flex align-items-center">
+                        <div class="col d-flex align-items-center justify-content-center ">
                             <a href="single.php"><button type="button" class="btn btn-secondary">離開</button></a>
                         </div>
-                        <div class="col6 col-sm-6 d-flex align-items-center align-self-center">
+                        <div class="col d-flex align-items-center align-self-center justify-content-center ">
                             <!-- <form id="mfrom" method="post" action="single_update.php"
                                 class="d-flex align-items-center align-self-center">
                                 <input type="hidden" id="cloth_id" name="cloth_id" value="<?php echo $cloth_id ?>">
